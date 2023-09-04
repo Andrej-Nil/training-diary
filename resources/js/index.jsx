@@ -1,5 +1,5 @@
 import './bootstrap';
-import '../css/app.scss';
+import '../css/style.scss';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
@@ -14,7 +14,6 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx')),
     setup({ el, App, props }) {
         const root = createRoot(el);
-
         root.render(
             <Provider store={store}>
                 <App {...props} />

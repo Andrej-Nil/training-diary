@@ -1,0 +1,22 @@
+.logo{
+    display: flex;
+    width: 165px;
+    align-items: center;
+    gap: 10px;
+}
+.logo__icon{
+    width: 50px;
+    height: 50px;
+}
+
+.logo__title{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo__word{
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+}
