@@ -1,6 +1,6 @@
 import App from "@/Layouts/App/App.jsx";
 import Container from "@/Components/Container/index.js";
-import Welcome from "@/Components/Welcome/Welcome.jsx";
+import WelcomeTablet from "@/Components/WelcomeTablet/WelcomeTablet.jsx";
 import Content from "@/Components/Content/Content.jsx";
 
 const Home = (props) => {
@@ -10,9 +10,7 @@ const Home = (props) => {
         <App auth={auth}>
             <Container>
                 <Content>
-
-
-                    <Welcome />
+                    <WelcomeTablet/>
                 </Content>
             </Container>
         </App>

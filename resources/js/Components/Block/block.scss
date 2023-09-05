@@ -1,0 +1,9 @@
+.block{
+    background: #fff;
+    margin: 0 auto;
+    padding: 30px 40px;
+    width: 100%;
+    &--small{
+        max-width: 660px;
+    }
+}

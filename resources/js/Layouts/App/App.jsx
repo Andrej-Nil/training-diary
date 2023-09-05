@@ -11,9 +11,6 @@ const App = (props) => {
     return(
         <div className="app">
             <Header auth={auth}/>
-
-
-
             {children}
             <Footer/>
         </div>
