@@ -5,7 +5,6 @@ import Footer from "@/Components/Footer/Footer.jsx";
 
 
 const App = (props) => {
-    console.log(props)
     const {auth, children} = props;
     const {hello} = useSelector((state) => state.test);
     return(

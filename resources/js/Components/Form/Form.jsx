@@ -4,7 +4,9 @@ const Form = (props) => {
     const {submit, children} = props;
     return (
         <form onSubmit={submit} className='form'>
-            {children}
+            <div className="form__content">
+                {children}
+            </div>
         </form>
     )
 }

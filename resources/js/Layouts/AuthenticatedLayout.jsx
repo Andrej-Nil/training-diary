@@ -32,8 +32,8 @@ export default function Authenticated({ user, header, children }) {
             {/*                    <Dropdown>*/}
             {/*                        <Dropdown.Trigger>*/}
             {/*                            <span className="inline-flex rounded-md">*/}
-            {/*                                <button*/}
-            {/*                                    type="button"*/}
+            {/*                                <button.scss*/}
+            {/*                                    type="button.scss"*/}
             {/*                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"*/}
             {/*                                >*/}
             {/*                                    {user.name}*/}
@@ -50,13 +50,13 @@ export default function Authenticated({ user, header, children }) {
             {/*                                            clipRule="evenodd"*/}
             {/*                                        />*/}
             {/*                                    </svg>*/}
-            {/*                                </button>*/}
+            {/*                                </button.scss>*/}
             {/*                            </span>*/}
             {/*                        </Dropdown.Trigger>*/}
 
             {/*                        <Dropdown.Content>*/}
             {/*                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>*/}
-            {/*                            <Dropdown.Link href={route('logout')} method="post" as="button">*/}
+            {/*                            <Dropdown.Link href={route('logout')} method="post" as="button.scss">*/}
             {/*                                Log Out*/}
             {/*                            </Dropdown.Link>*/}
             {/*                        </Dropdown.Content>*/}
@@ -65,7 +65,7 @@ export default function Authenticated({ user, header, children }) {
             {/*            </div>*/}
 
             {/*            <div className="-mr-2 flex items-center sm:hidden">*/}
-            {/*                <button*/}
+            {/*                <button.scss*/}
             {/*                    onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}*/}
             {/*                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"*/}
             {/*                >*/}
@@ -85,7 +85,7 @@ export default function Authenticated({ user, header, children }) {
             {/*                            d="M6 18L18 6M6 6l12 12"*/}
             {/*                        />*/}
             {/*                    </svg>*/}
-            {/*                </button>*/}
+            {/*                </button.scss>*/}
             {/*            </div>*/}
             {/*        </div>*/}
             {/*    </div>*/}
@@ -105,7 +105,7 @@ export default function Authenticated({ user, header, children }) {
 
             {/*            <div className="mt-3 space-y-1">*/}
             {/*                <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>*/}
-            {/*                <ResponsiveNavLink method="post" href={route('logout')} as="button">*/}
+            {/*                <ResponsiveNavLink method="post" href={route('logout')} as="button.scss">*/}
             {/*                    Log Out*/}
             {/*                </ResponsiveNavLink>*/}
             {/*            </div>*/}
