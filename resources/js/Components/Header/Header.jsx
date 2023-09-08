@@ -5,7 +5,7 @@ import GuestMenu from "@/Components/GuestMenu/index.js";
 import UserMenu from "@/Components/UserMenu/UserMenu.jsx";
 
 const Header = ({auth}) => {
-    const menu = auth.user ? <UserMenu /> : <GuestMenu />;
+    const menu = auth.user ? <UserMenu {...auth.user}/> : <GuestMenu />;
     const nav = auth.user ? <p>"nav"</p> : null;
     return (
         <div className="header">

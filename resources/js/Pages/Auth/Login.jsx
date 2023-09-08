@@ -1,44 +1,18 @@
-import {useEffect} from 'react';
-import Checkbox from '@/Components/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import {Head, Link, useForm} from '@inertiajs/react';
+import {Head} from '@inertiajs/react';
 import App from "@/Layouts/App/App.jsx";
 import Container from "@/Components/Container/Container.jsx";
 import Content from "@/Components/Content/Content.jsx";
 import LoginForm from "@/Components/LoginForm/LoginForm.jsx";
 
 export default function Login({auth, status, canResetPassword}) {
-    const {data, setData, post, processing, errors, reset} = useForm({
-        email: '',
-        password: '',
-        remember: false,
-    });
-
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('login'));
-    };
-
     return (
         <App auth={auth}>
-
+            <Head title="Вход" />
             <Container>
                 <Content>
                     <LoginForm />
                 </Content>
             </Container>
-
         </App>
         // <GuestLayout>
         //     <Head title="Log in" />

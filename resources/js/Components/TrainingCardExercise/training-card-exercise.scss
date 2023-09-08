@@ -1,0 +1,16 @@
+.training-card-exercise{
+    display: flex;
+    border-top: 1px solid #ccc;
+    &:last-child{
+        border-bottom: 1px solid #ccc;
+    }
+    //border-bottom: 1px solid #ccc;
+    //margin-bottom: 5px;
+}
+
+.training-card-exercise__title{
+    width: 250px;
+    flex-shrink: 0;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+}

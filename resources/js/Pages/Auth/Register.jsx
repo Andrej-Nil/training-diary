@@ -1,59 +1,18 @@
-import {useEffect} from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import {Head, Link, useForm} from '@inertiajs/react';
-import BlockTitle from "@/Components/BlockTitle/BlockTitle.jsx";
-import Form from "@/Components/Form/Form.jsx";
-import Input from "@/Components/Input/Input.jsx";
-import Block from "@/Components/Block/Block.jsx";
+import {Head} from '@inertiajs/react';
 import Container from "@/Components/Container/index.js";
 import Content from "@/Components/Content/Content.jsx";
 import App from "@/Layouts/App/App.jsx";
 import RegisterForm from "@/Components/RegisterForm/RegisterForm.jsx";
 
 export default function Register({auth}) {
-    const {data, setData, post, processing, errors, reset} = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-    });
 
-
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('register'));
-    };
-
-    console.log(processing)
-
-    const changeHandler = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setData(name, value)
-    }
 
     return (
         <App auth={auth}>
-
+            <Head title="Регистрация" />
             <Container>
                 <Content>
-                    <RegisterForm
-                        submit={submit}
-                        changeHandler={changeHandler}
-                        values={data}
-                        errors={errors}
-                    />
+                    <RegisterForm />
                 </Content>
             </Container>
 

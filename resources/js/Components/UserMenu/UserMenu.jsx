@@ -1,10 +1,12 @@
 import Menu from "@/Components/Menu/Menu.jsx";
 import MenuItem from "@/Components/MenuItem/MenuItem.jsx";
+import icon from '../../../image/icons/user.svg'
 
-const UserMenu = () => {
+const UserMenu = (props) => {
+const {name} = props;
     return (
         <Menu>
-            <MenuItem name="Войти" href="login" />
+            <MenuItem icon={icon} name={name} href="login" />
             <MenuItem name="Выход" href="logout"/>
         </Menu>
     )

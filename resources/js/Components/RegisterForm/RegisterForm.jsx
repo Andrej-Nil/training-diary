@@ -6,9 +6,36 @@ import FormBottom from "@/Components/FormBottom/FormBottom.jsx";
 import FormLink from "@/Components/FormLink/FormLink.jsx";
 import Button from "@/Components/Button/Button.jsx";
 import Btn from "@/Components/Btn/Btn.jsx";
+import {useForm} from "@inertiajs/react";
+import {useEffect} from "react";
 
-const RegisterForm = (props) => {
-    const {changeHandler, values, errors, submit} = props;
+const RegisterForm = () => {
+    const {data, setData, post, processing, errors, reset} = useForm({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+
+    useEffect(() => {
+        return () => {
+            reset('password', 'password_confirmation');
+        };
+    }, []);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('register'));
+    };
+
+
+    const changeHandler = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setData(name, value)
+    }
 
     return (
         <Block small>
@@ -18,14 +45,14 @@ const RegisterForm = (props) => {
                     change={changeHandler}
                     label="Имя"
                     name="name"
-                    value={values.name}
+                    value={data.name}
                     error={errors.name}
                 />
                 <Input
                     change={changeHandler}
                     label="E-Mail"
                     name="email"
-                    value={values.email}
+                    value={data.email}
                     error={errors.email}
                 />
                 <Input
@@ -33,7 +60,7 @@ const RegisterForm = (props) => {
                     label="Пароль"
                     type="password"
                     name="password"
-                    password={values.password}
+                    password={data.password}
                     error={errors.password}
                 />
                 <Input
@@ -41,7 +68,7 @@ const RegisterForm = (props) => {
                     label="Повторите пароль"
                     type="password"
                     name="password_confirmation"
-                    value={values.password_confirmation}
+                    value={data.password_confirmation}
                     error={errors.password_confirmation}
                 />
                 <FormBottom>

@@ -1,20 +1,25 @@
 import App from "@/Layouts/App/App.jsx";
 import Container from "@/Components/Container/index.js";
-import WelcomeTablet from "@/Components/WelcomeTablet/WelcomeTablet.jsx";
 import Content from "@/Components/Content/Content.jsx";
+import TrainingList from "@/Components/TrainingList/TrainingList.jsx";
+import {Head} from "@inertiajs/react";
+import CreateTrainingForm from "@/Components/CreateTrainingForm/CreateTrainingForm.jsx";
+import AddTraining from "@/Components/AddTraining/AddTraining.jsx";
 
 const Home = (props) => {
- const {auth} = props;
+    const {auth} = props;
 
     return(
         <App auth={auth}>
+            <Head title="Главная"/>
             <Container>
                 <Content>
-                    <WelcomeTablet/>
+                    <AddTraining />
+                    <CreateTrainingForm />
+                    <TrainingList />
                 </Content>
             </Container>
         </App>
-
     )
 }
 
