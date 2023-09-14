@@ -3,8 +3,7 @@ import Container from "@/Components/Container/index.js";
 import Content from "@/Components/Content/Content.jsx";
 import TrainingList from "@/Components/TrainingList/TrainingList.jsx";
 import {Head} from "@inertiajs/react";
-import CreateTrainingForm from "@/Components/CreateTrainingForm/CreateTrainingForm.jsx";
-import AddTraining from "@/Components/AddTraining/AddTraining.jsx";
+import StartTraining from "@/Components/StartTraining/StartTraining.jsx";
 
 const Home = (props) => {
     const {auth} = props;
@@ -14,8 +13,8 @@ const Home = (props) => {
             <Head title="Главная"/>
             <Container>
                 <Content>
-                    <AddTraining />
-                    <CreateTrainingForm />
+                   <StartTraining />
+
                     <TrainingList />
                 </Content>
             </Container>

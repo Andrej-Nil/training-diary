@@ -1,8 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import testReducer from './testSlise'
+import startTrainingSlice from './startTrainingSlice.js';
+import selectListSlice from "@/store/selectListSlice.js";
 
 export default configureStore({
     reducer: {
-        test: testReducer,
+        startTraining: startTrainingSlice,
+        selectList: selectListSlice,
+
     }
 })

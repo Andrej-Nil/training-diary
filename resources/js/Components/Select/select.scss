@@ -1,3 +1,9 @@
+.select{
+    position: relative;
+    &.open .select__arrow{
+        transform: rotate(180deg);
+    }
+}
 .select__label{
     display: block;
     margin-bottom: 10px;
@@ -8,12 +14,13 @@
     display: flex;
     align-items: center;
     border: 2px solid #000;
-    padding: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
-
 
 .select__arrow{
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     margin-left: auto;
 }
+

@@ -1,0 +1,32 @@
+.option{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    &:hover{
+        background: #ddd;
+    }
+}
+
+.option__dot{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #000;
+
+    &::before{
+        content: '';
+        position: relative;
+        display: block;
+        width: 8px;
+        height: 8px;
+    }
+    &.active::before{
+        background: #000;
+    }
+}
