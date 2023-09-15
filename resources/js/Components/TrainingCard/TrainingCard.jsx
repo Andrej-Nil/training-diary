@@ -15,11 +15,11 @@ const TrainingCard = () => {
 
             <div className="training-card__body">
                 <div className="training-card__content">
-                    <TrainingCardExercise />
-                    <TrainingCardExercise />
-                    <TrainingCardExercise />
-                    <TrainingCardExercise />
-                    <TrainingCardExercise />
+                    {/*<TrainingCardExercise />*/}
+                    {/*<TrainingCardExercise />*/}
+                    {/*<TrainingCardExercise />*/}
+                    {/*<TrainingCardExercise />*/}
+                    {/*<TrainingCardExercise />*/}
 
                 </div>
             </div>
