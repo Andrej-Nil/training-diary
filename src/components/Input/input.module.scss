@@ -1,0 +1,9 @@
+.input{
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  font-size: 16px;
+  outline: none;
+  &.error{
+    border: 1px solid #aa0000;
+  }
+}

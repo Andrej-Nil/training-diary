@@ -1,0 +1,14 @@
+.control{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+}
+
+.control__label{
+
+}
