@@ -6,7 +6,7 @@ import {useContext} from "react";
 
 export default function Nav(props){
   const {changePage} =  props;
-  const user = useContext(UserContext)
+  const [user] = useContext(UserContext);
 
   return (
     <nav className={classes.nav}>

@@ -4,7 +4,7 @@ import {useContext} from "react";
 import {UserContext} from "../../App.jsx";
 
 export default function UserMenu(props){
-const user = useContext(UserContext);
+const [user] = useContext(UserContext);
   const {changePage, openAuthModal} = props;
 
   return (

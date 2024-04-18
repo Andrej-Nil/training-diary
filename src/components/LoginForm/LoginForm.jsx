@@ -5,8 +5,8 @@ import useCheckInput from "../../hooks/useCheckInput.js";
 import Button from "../Button/Button";
 import useCheckForm from "../../hooks/useCheckForm.js";
 
-export default function LoginForm(){
 
+export default function LoginForm({login}){
   const [form, setForm] = useState({
     name: {
       name: 'name',
@@ -34,38 +34,34 @@ export default function LoginForm(){
   const check = useCheckInput();
   const checkForm = useCheckForm();
 
-  // function handleNameChange(e){
-  //  setForm((prev) => {
-  //    const input = {...prev.name};
-  //    input.value = e.target.value;
-  //    return {
-  //      ...prev,
-  //      name: input
-  //    }
-  //  })
-  // }
-
   function handleChange(e){
     const name = e.target.name;
     const value = e.target.value;
 
     setForm((prev) => {
-      // const input = {...prev[name]}
-      if(prev[name].required){
-        prev[name].hasError = check(value);
-      }
-      prev.isNotValid = checkForm([prev.name, prev.password])
-      prev[name].value = value;
+      const copyPrev = {...prev};
+      const changeableInput = {...copyPrev[name]};
 
+      if(changeableInput.required){
+        changeableInput.hasError = check(value);
+      }
+      const isNotValid = checkForm([changeableInput, copyPrev.password]);
+      changeableInput.value = value;
       return {
-        ...prev
+        ...copyPrev,
+        [name]: changeableInput,
+        isNotValid,
       }
     })
   }
 
-  function handlerSubmit(e){
-    e.preventDefault()
-    console.log('next')
+  async function handlerSubmit(e){
+    e.preventDefault();
+    if(form.isNotValid){
+      return;
+    }
+    login(e);
+
   }
 
   // function handleEmailChange(e){
@@ -76,7 +72,7 @@ export default function LoginForm(){
   //   console.log('password');
   // }
  return(
-   <Form action="login">
+   <Form onSubmit={handlerSubmit} action='login'>
      <Control
        name={form.name.name}
        id={form.name.id}
@@ -111,8 +107,7 @@ export default function LoginForm(){
        placeholder="Пароль"
        onChange={handleChange}
      />
-
-    <Button disabled={form.isNotValid} onClick={(e) => handlerSubmit(e)}>Войти</Button>
+    <Button disabled={form.isNotValid} type="submit">Войти</Button>
 
    </Form>
  )
