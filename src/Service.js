@@ -2,11 +2,10 @@ export default class Service {
   constructor() {
   }
 
-
-
     getUser = (id) => {
       const data = {
           success: Math.random() > 0.85,
+          message: 'Упс, что то пошло не так !',
           user: {
             name: 'AndreyNill',
           }
@@ -26,6 +25,7 @@ export default class Service {
   login = (formData) => {
     const data = {
       success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так !',
       user: {
         name: 'AndreyNill',
       }
@@ -38,7 +38,7 @@ export default class Service {
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (Math.random() > 0.92) {
+        if (Math.random() > 0.85) {
           reject(new Error('Что то пошло не так!'))
         } else {
           resolve(data);

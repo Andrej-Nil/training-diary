@@ -5,49 +5,114 @@ import Router from "./components/Router/Router";
 import AuthModal from "./components/AuthModal/AuthModal";
 import Service from "./Service.js";
 import MessageModal from "./components/MessageModal/MessageModal";
+import Footer from "./components/Footer/Footer";
+import CreateModal from "./components/CreateModal/CreateModal";
 
 export const UserContext = createContext(null);
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({name: 'AndrejNill'});
   const [page, setPage] = useState('HOME');
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [messageModel, setMessageModel] = useState({
     message: null,
     isOpen: false,
-    showLoader: false
+    isLoading: false
   });
+
+  const [isOpenCreator, setIsOpenCreator] = useState(false);
+  const [workout, setWorkout] = useState(true)
   const [tabAuth, setTabAuth] = useState('LOGIN');
 
   const service = new Service();
 
-  function login(e){
-    openMessageModal()
-    const formData = new FormData(e.target);
-    service.login(formData)
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+  function logout() {
+    setUser(null);
+    setWorkout(null)
   }
 
-  async function register(){
+  function login(e) {
+    openMessageModal();
+    showMessageLoader();
+    const formData = new FormData(e.target);
+    service.login(formData)
+      .then((data) => handleLoginResult(data))
+      .catch(() => fail({message: 'Упс! Что то пошло не так!'}));
+  }
+
+  function handleLoginResult(data) {
+    if (data.success) {
+      success(data);
+    } else {
+      fail(data)
+    }
+  }
+
+  function hideMessageLoader() {
+    setMessageModel((prev) => {
+      return {
+        ...prev,
+        isLoading: false
+      }
+    })
+
+  }
+
+  function showMessageLoader() {
+    setMessageModel((prev) => {
+      return {
+        ...prev,
+        isLoading: true
+      }
+    })
+
+  }
+
+  function success(data) {
+    hideMessageLoader();
+    closeMessageModal();
+    closeAuthModal();
+    setUser(data.user);
+  }
+
+  function fail(data) {
+    hideMessageLoader();
+    setMessage(data.message);
+  }
+
+  function setMessage(message) {
+    setMessageModel((prev) => {
+      return {
+        ...prev,
+        message: message
+      }
+    })
+  }
+
+  function register() {
 
   }
 
   function changePage(pageUrl) {
+    // if(user){
     setPage(pageUrl);
+    // }else {
+    //   setPage('HOME');
+    // }
+
   }
 
-  function openAuthModal(tab){
+  function openAuthModal(tab) {
     setIsOpenModal(true)
     setTabAuth(tab);
   }
 
-  function closeAuthModal(){
+  function closeAuthModal() {
     setIsOpenModal(false)
   }
 
-  function openMessageModal(){
+  function openMessageModal() {
     setMessageModel((prev) => {
       return {
         ...prev,
@@ -56,40 +121,53 @@ function App() {
     })
   }
 
-  function closeMessageModal(){
+  function closeMessageModal() {
     setMessageModel((prev) => {
       return {
         ...prev,
+        message: null,
         isOpen: false
       }
     })
   }
 
 
+
   return (
     <UserContext.Provider value={[user, setUser]}>
-      <Header openAuthModal={openAuthModal} changePage={changePage}/>
-      <main className='main'>
-        <div className='container'>
-          <Router page={page}/>
-        </div>
-      </main>
 
-      { isOpenModal
-        && <AuthModal
-          closeModal={closeAuthModal}
-          login={login}
-          register={register}
-          tab={tabAuth}
-          changeTab={setTabAuth} /> }
+      <div className='app'>
+        <Header logout={logout} openAuthModal={openAuthModal} changePage={changePage}/>
+        <main className='main'>
+          <div className='container'>
+            <Router
+              workout={workout}
+              openAuthModal={openAuthModal}
+              page={page}
 
-      {messageModel.isOpen
-        && <MessageModal
-          message={messageModel.message}
-          showLoader={messageModel.showLoader}
-          close={closeMessageModal}
-        />
-      }
+            />
+          </div>
+        </main>
+        <Footer/>
+
+        {isOpenModal
+          && <AuthModal
+            closeModal={closeAuthModal}
+            login={login}
+            register={register}
+            tab={tabAuth}
+            changeTab={setTabAuth}/>}
+
+        {messageModel.isOpen
+          && <MessageModal
+            message={messageModel.message}
+            isLoading={messageModel.isLoading}
+            close={closeMessageModal}/>}
+
+        {isOpenCreator
+        && <CreateModal />
+        }
+      </div>
     </UserContext.Provider>
   )
 }

@@ -2,17 +2,9 @@ import Logo from "../Logo/Logo";
 import classes from './header.module.scss';
 import UserMenu from "../UserMenu/UserMenu";
 import Nav from "../Nav/Nav";
-// import {useContext} from "react";
-// import {UserContext} from "../../App.jsx";
-
-
 
 export default function Header(props){
-  // const [user] = useContext(UserContext);
-  // console.log(user);
-  const { changePage, openAuthModal } = props;
-
-
+  const { changePage, openAuthModal, logout } = props;
 
   return (
     <header className={classes.header}>
@@ -25,6 +17,7 @@ export default function Header(props){
         <UserMenu
           openAuthModal={openAuthModal}
           changePage={changePage}
+          logout={logout}
         />
       </div>
     </header>
