@@ -1,5 +1,5 @@
 import classes from "./user-menu.module.scss";
-import NavItem from "../NavLink/NavItem";
+import NavItem from "../NavItem/NavItem";
 import {useContext} from "react";
 import {UserContext} from "../../App.jsx";
 

@@ -3,5 +3,6 @@ export default  [
   'ABOUT',
   'PROFILE',
   'WORKOUTS',
-  'HELP'
+  'HELP',
+  'TRAINING',
 ]

@@ -1,7 +1,7 @@
 import classes from './workout.module.scss'
 
-export default function Workout() {
+export default function Workout({workout}) {
   return(
-    <p>Поехали</p>
+    <div className={classes}></div>
   )
 }

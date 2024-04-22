@@ -4,13 +4,15 @@ import Text from "../Text/Text.jsx";
 import Button from "../Button/Button.jsx";
 import ButtonGroup from "../ButtonGroup/ButtonGroup.jsx";
 
-export default function WelcomeForUser(){
+export default function WelcomeForUser({changePage, workout}){
+  const btnText = workout ? 'Тренировка' : 'Начать тренировку';
+  const text = workout ? 'Ваша тренировка в самом разгаре!' : 'Привет! Хотите начать тренировку? Отлично!';
   return (
     <Welcome>
       <Title>Добро пожаловать!</Title>
-      <Text>Привет! Хотите начать тренировку? Отлично!</Text>
+      <Text>{text}</Text>
       <ButtonGroup>
-        <Button>Старт</Button>
+        <Button onClick={() => changePage('TRAINING')}>{btnText}</Button>
       </ButtonGroup>
     </Welcome>
   )

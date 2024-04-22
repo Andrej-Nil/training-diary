@@ -4,6 +4,7 @@ import Control from "../Control/Control";
 import useCheckInput from "../../hooks/useCheckInput.js";
 import Button from "../Button/Button";
 import useCheckForm from "../../hooks/useCheckForm.js";
+import Input from "../Input/Input";
 
 
 export default function LoginForm({login}){
@@ -73,17 +74,30 @@ export default function LoginForm({login}){
   // }
  return(
    <Form onSubmit={handlerSubmit} action='login'>
-     <Control
-       name={form.name.name}
-       id={form.name.id}
-       value={form.name.value}
-       type='text'
-       hasError={form.name.hasError}
-       label='Имя'
-       placeholder="Имя"
-       autoFocus
-       onChange={handleChange}
-     />
+     <Control label='Имя' htmlFor={form.name.id}>
+       <Input
+         name={form.name.name}
+         id={form.name.id}
+         value={form.name.value}
+         hasError={form.name.hasError}
+         placeholder="Имя"
+         type='text'
+         onChange={handleChange}
+       />
+     </Control>
+
+     {/*<Control*/}
+     {/*  label='Имя'*/}
+     {/*  name={form.name.name}*/}
+     {/*  id={form.name.id}*/}
+     {/*  value={form.name.value}*/}
+     {/*  type='text'*/}
+     {/*  hasError={form.name.hasError}*/}
+
+     {/*  placeholder="Имя"*/}
+     {/*  autoFocus*/}
+     {/*  onChange={handleChange}*/}
+     {/*/>*/}
 
      {/*<Control*/}
      {/*  name={form.email.name}*/}
@@ -97,16 +111,28 @@ export default function LoginForm({login}){
 
      {/*/>*/}
 
-     <Control
-       name={form.password.name}
-       id={form.password.id}
-       value={form.password.value}
-       type='password'
-       hasError={form.password.hasError}
-       label='Пароль'
-       placeholder="Пароль"
-       onChange={handleChange}
-     />
+     {/*<Control*/}
+     {/*  name={form.password.name}*/}
+     {/*  id={form.password.id}*/}
+     {/*  value={form.password.value}*/}
+     {/*  type='password'*/}
+     {/*  hasError={form.password.hasError}*/}
+     {/*  label='Пароль'*/}
+     {/*  placeholder="Пароль"*/}
+     {/*  onChange={handleChange}*/}
+     {/*/>*/}
+
+     <Control label='Пароль' htmlFor={form.password.id}>
+       <Input
+         name={form.password.name}
+         id={form.password.id}
+         value={form.password.value}
+         hasError={form.password.hasError}
+         placeholder="Пароль"
+         type='text'
+         onChange={handleChange}
+       />
+     </Control>
     <Button disabled={form.isNotValid} type="submit">Войти</Button>
 
    </Form>

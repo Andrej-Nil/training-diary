@@ -47,6 +47,27 @@ export default class Service {
     })
   }
 
+  create = (formData) => {
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так !',
+      workout: {
+        title: 'Фулбоди',
+        description: 'Тренировка со средними весами',
+        date: new Date().toLocaleDateString()
+      }
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
 
 
 }

@@ -14,8 +14,6 @@ export default function AuthModal({closeModal, tab, changeTab, login, register})
 
       {tab === 'LOGIN' ? <LoginForm login={login}/> : null}
       {tab === 'REGISTER' ? <RegisterForm register={register}/> : null}
-
-      {}
     </Modal>
   )
 }

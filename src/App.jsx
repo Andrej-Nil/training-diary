@@ -1,5 +1,4 @@
 import Header from "./components/Header/Header";
-
 import {createContext, useState} from "react";
 import Router from "./components/Router/Router";
 import AuthModal from "./components/AuthModal/AuthModal";
@@ -12,6 +11,7 @@ export const UserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState({name: 'AndrejNill'});
+  // const [user, setUser] = useState(null);
   const [page, setPage] = useState('HOME');
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -21,15 +21,16 @@ function App() {
     isLoading: false
   });
 
-  const [isOpenCreator, setIsOpenCreator] = useState(false);
-  const [workout, setWorkout] = useState(true)
+  const [isOpenCreator, setIsOpenCreator] = useState(true);
+  const [workout, setWorkout] = useState(null);
   const [tabAuth, setTabAuth] = useState('LOGIN');
 
   const service = new Service();
 
   function logout() {
     setUser(null);
-    setWorkout(null)
+    setWorkout(null);
+    setPage('HOME');
   }
 
   function login(e) {
@@ -43,7 +44,7 @@ function App() {
 
   function handleLoginResult(data) {
     if (data.success) {
-      success(data);
+      successLogin(data);
     } else {
       fail(data)
     }
@@ -69,11 +70,12 @@ function App() {
 
   }
 
-  function success(data) {
+  function successLogin(data) {
     hideMessageLoader();
     closeMessageModal();
     closeAuthModal();
     setUser(data.user);
+
   }
 
   function fail(data) {
@@ -88,6 +90,32 @@ function App() {
         message: message
       }
     })
+  }
+
+  function createWorkout(e) {
+    openMessageModal();
+    showMessageLoader();
+    const formData = new FormData(e.target);
+    service.create(formData)
+      .then((data) => handleCreateResult(data))
+      .catch(() => fail({message: 'Упс! Что то пошло не так!'}));
+  }
+
+  function handleCreateResult(data) {
+    if (data.success) {
+      successCreate(data);
+    } else {
+      fail(data)
+    }
+  }
+
+  function successCreate(data){
+    hideMessageLoader();
+    closeMessageModal();
+    closeCreator();
+    setWorkout(data.workout);
+    setPage('TRAINING');
+    // setUser(data.user);
   }
 
   function register() {
@@ -131,20 +159,26 @@ function App() {
     })
   }
 
-
+  function openCreator() {
+    setIsOpenCreator(true)
+  }
+  function closeCreator() {
+    setIsOpenCreator(false)
+  }
 
   return (
     <UserContext.Provider value={[user, setUser]}>
-
       <div className='app'>
-        <Header logout={logout} openAuthModal={openAuthModal} changePage={changePage}/>
+        <Header logout={logout} openAuthModal={openAuthModal} changePage={changePage} page={page}/>
         <main className='main'>
           <div className='container'>
             <Router
+              openCreator={openCreator}
+              changePage={changePage}
               workout={workout}
+              setWorkout={setWorkout}
               openAuthModal={openAuthModal}
               page={page}
-
             />
           </div>
         </main>
@@ -158,15 +192,19 @@ function App() {
             tab={tabAuth}
             changeTab={setTabAuth}/>}
 
+        {isOpenCreator
+          && <CreateModal
+            workout={workout}
+            createWorkout={createWorkout}
+            close={closeCreator} />}
+
         {messageModel.isOpen
           && <MessageModal
             message={messageModel.message}
             isLoading={messageModel.isLoading}
             close={closeMessageModal}/>}
 
-        {isOpenCreator
-        && <CreateModal />
-        }
+
       </div>
     </UserContext.Provider>
   )

@@ -4,6 +4,7 @@ import useCheckInput from "../../hooks/useCheckInput.js";
 import useCheckForm from "../../hooks/useCheckForm.js";
 import Control from "../Control/Control.jsx";
 import Button from "../Button/Button.jsx";
+import Input from "../Input/Input.jsx";
 
 export default function RegisterForm(){
   const [form, setForm] = useState({
@@ -61,40 +62,53 @@ export default function RegisterForm(){
 
   return(
     <Form action="register">
-      <Control
-        name={form.name.name}
-        id={form.name.id}
-        value={form.name.value}
-        type='text'
-        hasError={form.name.hasError}
-        label='Имя'
-        placeholder="Имя"
-        autoFocus
-        onChange={handleChange}
-      />
+      <Control label='Имя' htmlFor={form.name.id}>
+        <Input
+          name={form.name.name}
+          id={form.name.id}
+          value={form.name.value}
+          hasError={form.name.hasError}
+          placeholder="Имя"
+          type='text'
+          onChange={handleChange}
+        />
+      </Control>
 
-      <Control
-        name={form.email.name}
-        id={form.email.id}
-        value={form.email.value}
-        type='text'
-        hasError={form.email.hasError}
-        label='Email'
-        placeholder="Email"
-        onChange={handleChange}
+      <Control label='Email' htmlFor={form.email.id}>
+        <Input
+          name={form.email.name}
+          id={form.email.id}
+          value={form.email.value}
+          hasError={form.email.hasError}
+          placeholder="Email"
+          type='text'
+          onChange={handleChange}
+        />
+      </Control>
 
-      />
+      {/*<Control*/}
+      {/*  name={form.email.name}*/}
+      {/*  id={form.email.id}*/}
+      {/*  value={form.email.value}*/}
+      {/*  type='text'*/}
+      {/*  hasError={form.email.hasError}*/}
+      {/*  label='Email'*/}
+      {/*  placeholder="Email"*/}
+      {/*  onChange={handleChange}*/}
 
-      <Control
-        name={form.password.name}
-        id={form.password.id}
-        value={form.password.value}
-        type='password'
-        hasError={form.password.hasError}
-        label='Пароль'
-        placeholder="Пароль"
-        onChange={handleChange}
-      />
+      {/*/>*/}
+
+      <Control label='Пароль' htmlFor={form.password.id}>
+        <Input
+          name={form.password.name}
+          id={form.password.id}
+          value={form.password.value}
+          hasError={form.password.hasError}
+          placeholder="Пароль"
+          type='text'
+          onChange={handleChange}
+        />
+      </Control>
 
       <Button disabled={form.isNotValid} onClick={(e) => handlerSubmit(e)}>Зарегестрироваться</Button>
 
