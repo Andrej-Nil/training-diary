@@ -1,0 +1,21 @@
+.exercise{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f2f2f2;
+  padding: 20px 15px;
+  border-radius: 10px;
+  min-height: 300px;
+}
+
+.exercise__title{
+  font-size: 16px;
+  font-weight: 500;
+
+}
+.exercise__list{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+

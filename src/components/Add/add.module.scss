@@ -1,0 +1,33 @@
+.add{
+  background: #f2f2f2;
+  padding: 10px 15px;
+  border-radius: 10px;
+  min-height: 300px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  &:hover{
+    background: #373684;
+    & .add__title{
+      color: #fff;
+    }
+  }
+}
+
+.add__title{
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.add__plus{
+  width: 50%;
+}
+
+.add__icon{
+  width: 100%;
+}

@@ -8,10 +8,12 @@ export default function Message({message, close}) {
         {message}
       </div>
 
-      <div className={classes.message__btn}>
 
-        <Button onClick={() => close()}>OK</Button>
-      </div>
+      {close &&
+        <div className={classes.message__btn}>
+         <Button onClick={() => close()}>OK</Button>
+        </div>
+      }
 
     </div>
   )

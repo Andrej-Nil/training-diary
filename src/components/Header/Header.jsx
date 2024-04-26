@@ -4,7 +4,7 @@ import UserMenu from "../UserMenu/UserMenu";
 import Nav from "../Nav/Nav";
 
 export default function Header(props){
-  const { changePage, openAuthModal, logout, page } = props;
+  const {openModal, logout, changePage, page} = props;
 
   return (
     <header className={classes.header}>
@@ -15,7 +15,7 @@ export default function Header(props){
         <Nav changePage={changePage} page={page}/>
 
         <UserMenu
-          openAuthModal={openAuthModal}
+          openModal={openModal}
           changePage={changePage}
           logout={logout}
         />

@@ -1,3 +1,42 @@
 .workout{
 
 }
+
+.workout__top{
+//  display: flex;
+//  align-items: center;
+//  gap: 30px;
+//  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.workout__title{
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.workout__date{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.workout__desc{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.workout__list{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+
+
+//.workout-add{
+//
+//}
+//
+//.workout__

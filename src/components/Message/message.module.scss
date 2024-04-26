@@ -1,9 +1,11 @@
 .message{
-
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .message__text{
-  margin-bottom: 35px;
+  //margin-bottom: 35px;
   text-align: center;
   font-size: 18px;
   font-weight: 500;

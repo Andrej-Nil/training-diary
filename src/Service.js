@@ -1,13 +1,16 @@
 export default class Service {
   constructor() {
+    this.token = this.getToken();
+    this.days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'  ];
   }
 
-    getUser = (id) => {
+    getUser = () => {
       const data = {
-          success: Math.random() > 0.85,
+          success: Math.random() < 0.85,
           message: 'Упс, что то пошло не так !',
           user: {
             name: 'AndreyNill',
+            isWorkout: false
           }
         };
 
@@ -48,13 +51,14 @@ export default class Service {
   }
 
   create = (formData) => {
+    const date = new Date();
     const data = {
       success: Math.random() < 0.85,
       message: 'Упс, что то пошло не так !',
       workout: {
         title: 'Фулбоди',
         description: 'Тренировка со средними весами',
-        date: new Date().toLocaleDateString()
+        date: `${this.days[date.getDay()]} ${date.toLocaleDateString()}`
       }
     };
     return new Promise((resolve, reject) => {
@@ -68,6 +72,7 @@ export default class Service {
     })
   }
 
-
-
+  getToken() {
+   return document.querySelector('[name="token"]').content;
+  }
 }

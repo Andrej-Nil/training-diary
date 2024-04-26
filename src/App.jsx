@@ -1,48 +1,81 @@
 import Header from "./components/Header/Header";
-import {createContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import Router from "./components/Router/Router";
 import AuthModal from "./components/AuthModal/AuthModal";
-import Service from "./Service.js";
 import MessageModal from "./components/MessageModal/MessageModal";
 import Footer from "./components/Footer/Footer";
-import CreateModal from "./components/CreateModal/CreateModal";
+import {ServiceContext} from "./index.jsx";
+import LoadingModal from "./components/LoadingModal/LoadingModal.jsx";
+
 
 export const UserContext = createContext(null);
-
+export const ModalsContext = createContext(null);
 function App() {
-  const [user, setUser] = useState({name: 'AndrejNill'});
-  // const [user, setUser] = useState(null);
-  const [page, setPage] = useState('HOME');
+  const service = useContext(ServiceContext);
+  const [user, setUser] = useState( null);
+  useEffect(() => {
+    openModal('loading')
+      service.getUser()
+        .then((data) => handleSetUser(data))
+        .catch((error) => closeModal('loading'));
+  }, [])
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [messageModel, setMessageModel] = useState({
-    message: null,
-    isOpen: false,
-    isLoading: false
+  const [modals, setModals] = useState({
+    loading: {isOpen: false, option: 'Загружаю'},
+    message: {isOpen: false, option: ''},
+    auth: {isOpen: false, option: 'LOGIN'}
   });
+  const [page, setPage] = useState(null);
 
-  const [isOpenCreator, setIsOpenCreator] = useState(true);
-  const [workout, setWorkout] = useState(null);
-  const [tabAuth, setTabAuth] = useState('LOGIN');
+  function openModal(key, option){
+    setModals((prev) => {
+      const modal = {...prev[key]}
+      modal.isOpen = true;
+      if(option){
+        modal.option = option
+      }
+      return {
+        ...prev,
+        [key]: modal
+      }
+    })
+  }
 
-  const service = new Service();
+  function closeModal(key){
+    setModals((prev) => {
+      const modal = {...prev[key]}
+      modal.isOpen = false;
+      return { ...prev,  [key]: modal }
+    })
+  }
 
-  function logout() {
-    setUser(null);
-    setWorkout(null);
-    setPage('HOME');
+  function changeAuthTab(tab) {
+    setModals((prev) => {
+      const auth = {...prev.auth}
+      auth.option = tab;
+      return {  ...prev, auth }
+    })
+  }
+
+  function handleSetUser(data) {
+    closeModal('loading');
+    if(data.success){
+      setUser(data.user);
+      setPage('HOME');
+    }else{
+      console.log(data.message);
+    }
   }
 
   function login(e) {
-    openMessageModal();
-    showMessageLoader();
+    openModal('loading', 'Выполняем вход...')
     const formData = new FormData(e.target);
     service.login(formData)
-      .then((data) => handleLoginResult(data))
+      .then((data) => handleLoginResponse(data))
       .catch(() => fail({message: 'Упс! Что то пошло не так!'}));
   }
 
-  function handleLoginResult(data) {
+  function handleLoginResponse(data) {
     if (data.success) {
       successLogin(data);
     } else {
@@ -50,162 +83,56 @@ function App() {
     }
   }
 
-  function hideMessageLoader() {
-    setMessageModel((prev) => {
-      return {
-        ...prev,
-        isLoading: false
-      }
-    })
-
-  }
-
-  function showMessageLoader() {
-    setMessageModel((prev) => {
-      return {
-        ...prev,
-        isLoading: true
-      }
-    })
-
-  }
-
   function successLogin(data) {
-    hideMessageLoader();
-    closeMessageModal();
-    closeAuthModal();
+    closeModal('loading');
+    closeModal('auth');
     setUser(data.user);
-
-  }
-
-  function fail(data) {
-    hideMessageLoader();
-    setMessage(data.message);
-  }
-
-  function setMessage(message) {
-    setMessageModel((prev) => {
-      return {
-        ...prev,
-        message: message
-      }
-    })
-  }
-
-  function createWorkout(e) {
-    openMessageModal();
-    showMessageLoader();
-    const formData = new FormData(e.target);
-    service.create(formData)
-      .then((data) => handleCreateResult(data))
-      .catch(() => fail({message: 'Упс! Что то пошло не так!'}));
-  }
-
-  function handleCreateResult(data) {
-    if (data.success) {
-      successCreate(data);
-    } else {
-      fail(data)
-    }
-  }
-
-  function successCreate(data){
-    hideMessageLoader();
-    closeMessageModal();
-    closeCreator();
-    setWorkout(data.workout);
-    setPage('TRAINING');
-    // setUser(data.user);
   }
 
   function register() {
 
   }
 
-  function changePage(pageUrl) {
-    // if(user){
-    setPage(pageUrl);
-    // }else {
-    //   setPage('HOME');
-    // }
 
+  function logout() {
+    setUser(null);
+    setPage('HOME');
   }
 
-  function openAuthModal(tab) {
-    setIsOpenModal(true)
-    setTabAuth(tab);
+  function fail(data) {
+    closeModal('loading');
+    openModal('message', data.message);
   }
 
-  function closeAuthModal() {
-    setIsOpenModal(false)
-  }
-
-  function openMessageModal() {
-    setMessageModel((prev) => {
-      return {
-        ...prev,
-        isOpen: true
-      }
-    })
-  }
-
-  function closeMessageModal() {
-    setMessageModel((prev) => {
-      return {
-        ...prev,
-        message: null,
-        isOpen: false
-      }
-    })
-  }
-
-  function openCreator() {
-    setIsOpenCreator(true)
-  }
-  function closeCreator() {
-    setIsOpenCreator(false)
-  }
 
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={[user, setUser, logout]}>
+      <ModalsContext.Provider value={[]} >
       <div className='app'>
-        <Header logout={logout} openAuthModal={openAuthModal} changePage={changePage} page={page}/>
+        <Header openModal={openModal} changePage={setPage} page={page} logout={logout}/>
         <main className='main'>
+
           <div className='container'>
-            <Router
-              openCreator={openCreator}
-              changePage={changePage}
-              workout={workout}
-              setWorkout={setWorkout}
-              openAuthModal={openAuthModal}
-              page={page}
-            />
+            {page && <Router changePage={setPage} openModal={openModal} page={page} />}
           </div>
+
         </main>
+
         <Footer/>
 
-        {isOpenModal
+        {modals.auth.isOpen
           && <AuthModal
-            closeModal={closeAuthModal}
+            tab={modals.auth.option}
+            changeAuthTab={changeAuthTab}
+            close={closeModal}
             login={login}
-            register={register}
-            tab={tabAuth}
-            changeTab={setTabAuth}/>}
+            register={register} />}
 
-        {isOpenCreator
-          && <CreateModal
-            workout={workout}
-            createWorkout={createWorkout}
-            close={closeCreator} />}
-
-        {messageModel.isOpen
-          && <MessageModal
-            message={messageModel.message}
-            isLoading={messageModel.isLoading}
-            close={closeMessageModal}/>}
-
+        {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
+        {modals.loading.isOpen && <LoadingModal message={modals.loading.option} />  }
 
       </div>
+      </ModalsContext.Provider>
     </UserContext.Provider>
   )
 }

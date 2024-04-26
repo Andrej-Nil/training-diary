@@ -19,6 +19,9 @@
 }
 
 .modal__content{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   position: relative;
   max-width: 600px;
   width: 100%;

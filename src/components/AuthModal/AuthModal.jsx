@@ -4,12 +4,14 @@ import TabBtn from "../TabBtn/TabBtn";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
-export default function AuthModal({closeModal, tab, changeTab, login, register}){
+export default function AuthModal(props){
+  // const {closeModal, tab, changeTab, login, register} = props;
+  const {close, changeAuthTab, tab, login, register} = props;
   return(
-    <Modal darkBg cross close={closeModal}>
+    <Modal darkBg cross close={() => close('auth')}>
       <Tabs>
-        <TabBtn isActive={tab === 'LOGIN'} onClick={() => changeTab('LOGIN')}>Вход</TabBtn>
-        <TabBtn isActive={tab === 'REGISTER'} onClick={() => changeTab('REGISTER')}>Регистрация</TabBtn>
+        <TabBtn isActive={tab === 'LOGIN'} onClick={() => changeAuthTab('LOGIN')}>Вход</TabBtn>
+        <TabBtn isActive={tab === 'REGISTER'} onClick={() => changeAuthTab('REGISTER')}>Регистрация</TabBtn>
       </Tabs>
 
       {tab === 'LOGIN' ? <LoginForm login={login}/> : null}
