@@ -3,8 +3,9 @@ import classes from './header.module.scss';
 import UserMenu from "../UserMenu/UserMenu";
 import Nav from "../Nav/Nav";
 
+
 export default function Header(props){
-  const {openModal, logout, changePage, page} = props;
+  const { logout, changePage, page} = props;
 
   return (
     <header className={classes.header}>
@@ -15,7 +16,6 @@ export default function Header(props){
         <Nav changePage={changePage} page={page}/>
 
         <UserMenu
-          openModal={openModal}
           changePage={changePage}
           logout={logout}
         />

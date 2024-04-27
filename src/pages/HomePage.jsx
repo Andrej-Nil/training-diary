@@ -1,12 +1,13 @@
 import {useContext} from "react";
-import {UserContext} from "../App.jsx";
+import {ModalsContext, UserContext} from "../App.jsx";
 import WelcomeForGuest from "../components/WelcomeForGuest/WelcomForGuest";
 import WelcomeForUser from "../components/WelcomeForUser/WelcomeForUser";
-export default function HomePage({openModal, changePage, workout}){
+export default function HomePage({changePage}){
+  const {openModal} = useContext(ModalsContext);
   const [user] = useContext(UserContext);
   return (
     <>
-      {user && <WelcomeForUser changePage={changePage} workout={workout}/>}
+      {user && <WelcomeForUser changePage={changePage} workout={user.isWorkout}/>}
       {!user && <WelcomeForGuest openModal={openModal} />}
     </>
   )

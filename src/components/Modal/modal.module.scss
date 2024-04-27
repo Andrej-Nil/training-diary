@@ -1,10 +1,14 @@
 .modal{
   position: fixed;
   display: flex;
+  overflow: auto;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  &.dark{
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
 
 .modal__bg{
@@ -13,9 +17,6 @@
   left: 0;
   bottom: 0;
   right: 0;
-  &.dark{
-    background: rgba(0, 0, 0, 0.5);
-  }
 }
 
 .modal__content{

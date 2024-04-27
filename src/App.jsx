@@ -1,32 +1,40 @@
 import Header from "./components/Header/Header";
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import Router from "./components/Router/Router";
 import AuthModal from "./components/AuthModal/AuthModal";
 import MessageModal from "./components/MessageModal/MessageModal";
 import Footer from "./components/Footer/Footer";
-import {ServiceContext} from "./index.jsx";
 import LoadingModal from "./components/LoadingModal/LoadingModal.jsx";
+import CreateModal from "./components/CreateModal/CreateModal.jsx";
+import useService from "./hooks/useService.js";
 
 
 export const UserContext = createContext(null);
-export const ModalsContext = createContext(null);
+export const ModalsContext = createContext('')
 function App() {
-  const service = useContext(ServiceContext);
-  const [user, setUser] = useState( null);
-  useEffect(() => {
-    openModal('loading')
-      service.getUser()
-        .then((data) => handleSetUser(data))
-        .catch((error) => closeModal('loading'));
-  }, [])
-
+  const service = useService();
+  const [user, setUser] = useState({name: 'test', isWorkout: false});
   const [modals, setModals] = useState({
     loading: {isOpen: false, option: 'Загружаю'},
     message: {isOpen: false, option: ''},
-    auth: {isOpen: false, option: 'LOGIN'}
+    auth: {isOpen: false, option: 'LOGIN'},
+    create: {isOpen: false, option: ''}
   });
-  const [page, setPage] = useState(null);
+  // useEffect(() => {
+  //   openModal('loading')
+  //     service.getUser()
+  //       .then((data) => handleSetUser(data))
+  //       .catch((error) => {
+  //         closeModal('loading');
+  //         setPage('HOME');
+  //       });
+  // }, [])
 
+
+
+
+  // const [page, setPage] = useState('null');
+  const [page, setPage] = useState('TRAINING');
   function openModal(key, option){
     setModals((prev) => {
       const modal = {...prev[key]}
@@ -49,11 +57,11 @@ function App() {
     })
   }
 
-  function changeAuthTab(tab) {
+  function changeOption(key, option) {
     setModals((prev) => {
-      const auth = {...prev.auth}
-      auth.option = tab;
-      return {  ...prev, auth }
+      const modal = {...prev[key]}
+      modal.option = option;
+      return {  ...prev, [key]: modal }
     })
   }
 
@@ -63,6 +71,7 @@ function App() {
       setUser(data.user);
       setPage('HOME');
     }else{
+      setPage('HOME');
       console.log(data.message);
     }
   }
@@ -87,12 +96,12 @@ function App() {
     closeModal('loading');
     closeModal('auth');
     setUser(data.user);
+    setPage('HOME');
   }
 
   function register() {
 
   }
-
 
   function logout() {
     setUser(null);
@@ -104,16 +113,15 @@ function App() {
     openModal('message', data.message);
   }
 
-
   return (
     <UserContext.Provider value={[user, setUser, logout]}>
-      <ModalsContext.Provider value={[]} >
+      <ModalsContext.Provider value={{openModal, closeModal, changeOption, modals}}>
       <div className='app'>
-        <Header openModal={openModal} changePage={setPage} page={page} logout={logout}/>
+        <Header changePage={setPage} page={page} logout={logout}/>
         <main className='main'>
 
           <div className='container'>
-            {page && <Router changePage={setPage} openModal={openModal} page={page} />}
+            {page && <Router changePage={setPage} page={page} />}
           </div>
 
         </main>
@@ -123,18 +131,19 @@ function App() {
         {modals.auth.isOpen
           && <AuthModal
             tab={modals.auth.option}
-            changeAuthTab={changeAuthTab}
+            changeTab={changeOption}
             close={closeModal}
             login={login}
             register={register} />}
 
+
+        {modals.create.isOpen && <CreateModal close={closeModal} />}
         {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
         {modals.loading.isOpen && <LoadingModal message={modals.loading.option} />  }
-
       </div>
       </ModalsContext.Provider>
     </UserContext.Provider>
   )
 }
 
-export default App
+export default App;

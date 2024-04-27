@@ -6,12 +6,15 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 
 export default function AuthModal(props){
   // const {closeModal, tab, changeTab, login, register} = props;
-  const {close, changeAuthTab, tab, login, register} = props;
+  const {close, changeTab, tab, login, register} = props;
+  function handleChangeTab(tab){
+    changeTab('auth', tab)
+  }
   return(
     <Modal darkBg cross close={() => close('auth')}>
       <Tabs>
-        <TabBtn isActive={tab === 'LOGIN'} onClick={() => changeAuthTab('LOGIN')}>Вход</TabBtn>
-        <TabBtn isActive={tab === 'REGISTER'} onClick={() => changeAuthTab('REGISTER')}>Регистрация</TabBtn>
+        <TabBtn isActive={tab === 'LOGIN'} onClick={() => handleChangeTab('LOGIN')}>Вход</TabBtn>
+        <TabBtn isActive={tab === 'REGISTER'} onClick={() => handleChangeTab('REGISTER')}>Регистрация</TabBtn>
       </Tabs>
 
       {tab === 'LOGIN' ? <LoginForm login={login}/> : null}

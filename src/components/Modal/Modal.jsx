@@ -3,10 +3,10 @@ import Cross from "../Cross/Cross";
 
 export default function Modal({children, darkBg, close, cross}){
 
-  const clsBg = darkBg ? `${classes.modal__bg} ${classes.dark}` : classes.modal__bg;
+  const clsModal = darkBg ? `${classes.modal} ${classes.dark}` : classes.modal;
   return (
-    <div className={classes.modal}>
-      <div onClick={close} className={clsBg}></div>
+    <div className={clsModal}>
+      <div onClick={close} className={classes.modal__bg}></div>
       <div className={classes.modal__content}>
         {cross
           ? <span onClick={close} className={classes.modal__close}><Cross /></span>

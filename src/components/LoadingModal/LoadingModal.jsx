@@ -4,7 +4,7 @@ import Message from "../Message/Message.jsx";
 export default function LoadingModal({message}){
   const text =  message ? message : 'Идет загрузка...';
   return (
-    <Modal >
+    <Modal>
       <Loader/>
       <Message message={text}/>
     </Modal>

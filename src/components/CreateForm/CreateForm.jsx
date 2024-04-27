@@ -1,11 +1,15 @@
 import Form from "../Form/Form";
 import Button from "../Button/Button.jsx";
 import Control from "../Control/Control.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import Input from "../Input/Input.jsx";
 import Textarea from "../Textarea/Textarea";
+import {UserContext} from "../../App.jsx";
+import useService from "../../hooks/useService.js";
 
-export default function CreateForm({create}){
+export default function CreateForm({openModal, closeModal}){
+  const service = useService()
+  const [user, setUser] = useContext(UserContext);
   const [form, setForm] = useState({
     title: {
       name: 'title',
@@ -16,21 +20,7 @@ export default function CreateForm({create}){
       name: 'description',
       id: 'titleDescription',
       value: '',
-    },
-    // email: {
-    //   name: 'email',
-    //   id: 'LoginEmail',
-    //   value: '',
-    //   required: true,
-    //   hasError: false
-    // },
-    // password: {
-    //   name: 'password',
-    //   id: 'LoginPassword',
-    //   value: '',
-    //   required: true,
-    //   hasError: false
-    // },
+    }
   });
   function handleChange(e){
     const name = e.target.name;
@@ -51,11 +41,39 @@ export default function CreateForm({create}){
 
   function handlerSubmit(e){
     e.preventDefault();
-    // cons
-    create(e);
+    const formData = new FormData(e.target);
+    openModal('loading')
+    service.createTraining(formData)
+      .then((data) => handleResponse(data))
+      .catch((error) => fail({message: "Упс! Что то пошло не по плану"}))
   }
 
 
+  function handleResponse(data){
+    closeModal('loading', 'Создание тренировки');
+    if(data.success){
+      success(data)
+    }else{
+      fail(data)
+    }
+
+  }
+
+  function success() {
+    closeModal('loading');
+    closeModal('create');
+    setUser((prev) => {
+      return {
+        ...prev,
+        isWorkout: true
+      }
+    })
+
+  }
+  function fail(data) {
+    closeModal('loading');
+    openModal('message', data.message)
+  }
   // disabled={form.isNotValid}
   return (
     <Form onSubmit={handlerSubmit} action="create">
@@ -67,8 +85,7 @@ export default function CreateForm({create}){
           value={form.title.value}
           placeholder="Название"
           type='text'
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
       </Control>
 
       <Control label='Описание' htmlFor={form.description.id}>
@@ -81,15 +98,6 @@ export default function CreateForm({create}){
             onChange={handleChange} />
       </Control>
 
-      {/*<Control*/}
-      {/*  name={form.title.name}*/}
-      {/*  id={form.title.id}*/}
-      {/*  value={form.title.value}*/}
-      {/*  type='title'*/}
-      {/*  label='Название'*/}
-      {/*  placeholder="Название"*/}
-      {/*  onChange={handleChange}*/}
-      {/*/>*/}
 
       <Button type="submit">Начать тренировку</Button>
     </Form>

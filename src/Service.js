@@ -4,7 +4,23 @@ export default class Service {
     this.days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'  ];
   }
 
-    getUser = () => {
+  createTraining = () => {
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так !'
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  getUser = () => {
       const data = {
           success: Math.random() < 0.85,
           message: 'Упс, что то пошло не так !',
@@ -59,6 +75,30 @@ export default class Service {
         title: 'Фулбоди',
         description: 'Тренировка со средними весами',
         date: `${this.days[date.getDay()]} ${date.toLocaleDateString()}`
+      }
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  getCurrent(){
+    const date = new Date();
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так !',
+      data: {
+        id: `id+ ${Date.now()}`,
+        title: 'Подьем на бицепс с кривым грифом',
+        date: `${this.days[date.getDay()]} ${date.toLocaleDateString()}`,
+        description: 'Тренировка с не большими весами',
+        approach: []
       }
     };
     return new Promise((resolve, reject) => {
