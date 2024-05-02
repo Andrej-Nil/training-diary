@@ -1,72 +1,109 @@
 import classes from './workout.module.scss'
-import WorkoutRow from "../WorkoutRow/WorkoutRow";
 import Add from "../Add/Add";
 import Exercise from "../Exercise/Exercise";
 import {useContext, useEffect, useState} from "react";
 import useService from "../../hooks/useService.js";
 import {ModalsContext} from "../../App.jsx";
+import AddExerciseModal from "../AddExerciseModal/AddExerciseModal.jsx";
 
 
 export default function Workout({user}) {
-  const {openModal, closeModal} = useContext(ModalsContext);
-  const [workout, setWorkout] = useState(null);
+  const {openModal, closeModal, modals} = useContext(ModalsContext);
+  // const [workout, setWorkout] = useState(null);
+  const [workout, setWorkout] = useState({
+    id: `id+${Date.now()}`,
+    title: 'Грудь, бицепс',
+    date: 'Чт 02.05.2024',
+    description: 'Тренировка с не большими весами',
+    exerciseList: [
+      {
+        id: `id==${Date.now()}`,
+        title: 'Жим на горизонтальной скамье',
+        approachList: [{id:`id+=${Date.now()}`, intensity: '',  unit: '', isEdited: true}]
+      }
+    ],
+
+  });
   const service = useService();
-  useEffect(() => {
-    openModal('loading', 'Идет загрузка...')
-    service.getCurrent()
-      .then((data) => success(data))
-      .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
-  }, []);
+  // useEffect(() => {
+  //   openModal('loading', 'Идет загрузка...')
+  //   service.getCurrent()
+  //     .then((data) => getCurrentSuccess(data))
+  //     .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
+  // }, []);
 
-  function success(data){
-    closeModal('loading');
-    if(data.success){
-      setWorkout(data);
-      console.log('ksjdhfhd')
-
+  function getCurrentSuccess(response){
+    if(response.success){
+      closeModal('loading');
+      setWorkout(response.data);
     }else{
-      fail(data)
+      fail(response);
     }
   }
-  function fail(data) {
+
+  function fail(response) {
     closeModal('loading');
-    openModal('message', data.message)
+    openModal('message', response.message);
   }
-  // function handleChange(input, id) {
-  //   console.log(input, id);
-  // }
-  //
-  // function handleApproachChange(id, input, idx) {
-  //   console.log(id, input, idx);
-  // }
-  //
-  // function add() {
-  //
-  // }
+
+
+  function getExercise(data){
+    openModal('loading');
+    service.getExercise()
+      .then((response) => getExerciseSuccess(response))
+      .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
+  }
+
+  function getExerciseSuccess(response){
+    if(response.success){
+      closeModal('loading');
+      setWorkout((prev) => {
+        return{
+          ...prev,
+          exerciseList: response.data
+        }
+      })
+      // setWorkout(response.data);
+    } else {
+      fail(response.map)
+    }
+  }
+
+  function addApproach() {
+
+  }
+
 
   if(!workout){
-    return null
+    return null;
   }
 
-
-
   return (
-    <div className={classes.workout}>
-      <div className={classes.workout__top}>
-        <h2 className={classes.workout__title}>{workout.title}</h2>
-        <p className={classes.workout__date}>{workout.date}</p>
+    <>
+      <div className={classes.workout}>
+        <div className={classes.workout__top}>
+          <p className={classes.workout__date}>{workout.date}</p>
+          <h2 className={classes.workout__title}>{workout.title}</h2>
+
+        </div>
+        <p className={classes.workout__desc}>{workout.description}</p>
+
+        <div className={classes.workout__list}>
+
+          {
+            workout.exerciseList.map((exercise) => {
+              return <Exercise key={exercise.id} exercise={exercise} addApproach={addApproach} />
+            })
+          }
+
+          <Add onClick={() => openModal('addExercise')}/>
+        </div>
+
+
       </div>
-      <p className={classes.workout__desc}>{workout.description}</p>
 
-      <div className={classes.workout__list}>
-        <Exercise />
-        <Add />
-        {/*{actions.map((item)=>{*/}
-        {/*  return <WorkoutRow key={item.id} changeApproach={handleApproachChange} handleChange={handleChange} {...item}/>*/}
-        {/*})}*/}
-      </div>
+      {modals.addExercise.isOpen && <AddExerciseModal getExercise={getExercise}/>}
+    </>
+    )
 
-
-    </div>
-  )
 }

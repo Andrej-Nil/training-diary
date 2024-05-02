@@ -45,8 +45,9 @@ export default function RegisterForm(){
       if(changeableInput.required){
         changeableInput.hasError = check(value);
       }
-      const isNotValid = checkForm([changeableInput, copyPrev.email, copyPrev.password]);
       changeableInput.value = value;
+      const isNotValid = checkForm([changeableInput, copyPrev.email, copyPrev.password]);
+
       return {
         ...copyPrev,
         [name]: changeableInput,

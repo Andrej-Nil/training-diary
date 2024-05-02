@@ -46,8 +46,10 @@ export default function LoginForm({login}){
       if(changeableInput.required){
         changeableInput.hasError = check(value);
       }
-      const isNotValid = checkForm([changeableInput, copyPrev.password]);
       changeableInput.value = value;
+
+      const isNotValid = checkForm([changeableInput, copyPrev.password]);
+
       return {
         ...copyPrev,
         [name]: changeableInput,
@@ -65,13 +67,6 @@ export default function LoginForm({login}){
 
   }
 
-  // function handleEmailChange(e){
-  //   console.log('Email');
-  // }
-
-  // function  handlePasswordChange(e){
-  //   console.log('password');
-  // }
  return(
    <Form onSubmit={handlerSubmit} action='login'>
      <Control label='Имя' htmlFor={form.name.id}>
@@ -85,42 +80,6 @@ export default function LoginForm({login}){
          onChange={handleChange}
        />
      </Control>
-
-     {/*<Control*/}
-     {/*  label='Имя'*/}
-     {/*  name={form.name.name}*/}
-     {/*  id={form.name.id}*/}
-     {/*  value={form.name.value}*/}
-     {/*  type='text'*/}
-     {/*  hasError={form.name.hasError}*/}
-
-     {/*  placeholder="Имя"*/}
-     {/*  autoFocus*/}
-     {/*  onChange={handleChange}*/}
-     {/*/>*/}
-
-     {/*<Control*/}
-     {/*  name={form.email.name}*/}
-     {/*  id={form.email.id}*/}
-     {/*  value={form.email.value}*/}
-     {/*  type='text'*/}
-     {/*  hasError={form.email.hasError}*/}
-     {/*  label='Email'*/}
-     {/*  placeholder="Email"*/}
-     {/*  onChange={handleChange}*/}
-
-     {/*/>*/}
-
-     {/*<Control*/}
-     {/*  name={form.password.name}*/}
-     {/*  id={form.password.id}*/}
-     {/*  value={form.password.value}*/}
-     {/*  type='password'*/}
-     {/*  hasError={form.password.hasError}*/}
-     {/*  label='Пароль'*/}
-     {/*  placeholder="Пароль"*/}
-     {/*  onChange={handleChange}*/}
-     {/*/>*/}
 
      <Control label='Пароль' htmlFor={form.password.id}>
        <Input

@@ -88,17 +88,17 @@ export default class Service {
     })
   }
 
-  getCurrent(){
+  getCurrent = () =>{
     const date = new Date();
     const data = {
       success: Math.random() < 0.85,
-      message: 'Упс, что то пошло не так !',
+      message: 'Упс, что то пошло не так!',
       data: {
         id: `id+ ${Date.now()}`,
-        title: 'Подьем на бицепс с кривым грифом',
+        title: 'Грудь, бицепс',
         date: `${this.days[date.getDay()]} ${date.toLocaleDateString()}`,
         description: 'Тренировка с не большими весами',
-        approach: []
+        exerciseList: []
       }
     };
     return new Promise((resolve, reject) => {
@@ -111,6 +111,48 @@ export default class Service {
       }, 1000);
     })
   }
+
+  addExercise = () => {
+    const date = new Date();
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  getExercise = () => {
+
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+      data: [
+        {
+          id: `id==${Date.now()}`,
+          title: 'Жим на горизонтальной скамье',
+          approachList: []
+        }
+      ]
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
 
   getToken() {
    return document.querySelector('[name="token"]').content;

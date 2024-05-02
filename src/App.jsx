@@ -13,12 +13,13 @@ export const UserContext = createContext(null);
 export const ModalsContext = createContext('')
 function App() {
   const service = useService();
-  const [user, setUser] = useState({name: 'test', isWorkout: false});
+  const [user, setUser] = useState({name: 'test', isWorkout: true});
   const [modals, setModals] = useState({
     loading: {isOpen: false, option: 'Загружаю'},
     message: {isOpen: false, option: ''},
     auth: {isOpen: false, option: 'LOGIN'},
-    create: {isOpen: false, option: ''}
+    create: {isOpen: false, option: ''},
+    addExercise: {isOpen: false, option: ''}
   });
   // useEffect(() => {
   //   openModal('loading')
@@ -139,7 +140,8 @@ function App() {
 
         {modals.create.isOpen && <CreateModal close={closeModal} />}
         {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
-        {modals.loading.isOpen && <LoadingModal message={modals.loading.option} />  }
+        {modals.loading.isOpen && <LoadingModal message={modals.loading.option} /> }
+
       </div>
       </ModalsContext.Provider>
     </UserContext.Provider>

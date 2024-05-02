@@ -1,8 +1,8 @@
 import classes from './add.module.scss';
 import plus from '../../assets/icon/plus.svg';
-export default function Add(){
+export default function Add(props){
   return(
-    <div className={classes.add}>
+    <div {...props} className={classes.add}>
 
       <div className={classes.add__plus}>
         <img className={classes.add__icon} src={plus} alt=""/>
