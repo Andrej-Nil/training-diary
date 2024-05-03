@@ -153,6 +153,46 @@ export default class Service {
     })
   }
 
+  addApproach = (exerciseId) => {
+    const date = new Date();
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  getApproach = (exerciseId) => {
+    const date = new Date();
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+      data: [
+        {id:`id+=20`, intensity: '20',  unit: '10', isEdited: true},
+        {id:`id+=50`, intensity: '50',  unit: '10', isEdited: true},
+        {id:`id+=70`, intensity: '70',  unit: '5', isEdited: true},
+        {id:`id+=85`, intensity: '85',  unit: '6', isEdited: true},
+        {id:`id+=86`, intensity: '0',  unit: '0', isEdited: false},
+      ]
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
 
   getToken() {
    return document.querySelector('[name="token"]').content;

@@ -20,6 +20,11 @@ export default function Workout({user}) {
         id: `id==${Date.now()}`,
         title: 'Жим на горизонтальной скамье',
         approachList: [{id:`id+=${Date.now()}`, intensity: '',  unit: '', isEdited: true}]
+      },
+      {
+        id: `id==33`,
+        title: 'Присяд',
+        approachList: [{id:`id+=11`, intensity: '',  unit: '', isEdited: true}]
       }
     ],
 
@@ -58,20 +63,13 @@ export default function Workout({user}) {
     if(response.success){
       closeModal('loading');
       setWorkout((prev) => {
-        return{
-          ...prev,
-          exerciseList: response.data
-        }
+        return { ...prev, exerciseList: response.data }
       })
-      // setWorkout(response.data);
     } else {
       fail(response.map)
     }
   }
 
-  function addApproach() {
-
-  }
 
 
   if(!workout){
@@ -92,14 +90,12 @@ export default function Workout({user}) {
 
           {
             workout.exerciseList.map((exercise) => {
-              return <Exercise key={exercise.id} exercise={exercise} addApproach={addApproach} />
+              return <Exercise key={exercise.id} exercise={exercise} setWorkout={setWorkout}/>
             })
           }
 
           <Add onClick={() => openModal('addExercise')}/>
         </div>
-
-
       </div>
 
       {modals.addExercise.isOpen && <AddExerciseModal getExercise={getExercise}/>}

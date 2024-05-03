@@ -1,17 +1,35 @@
 import classes from "./exercise-item.module.scss";
 import edit from "../../assets/icon/edit.svg";
-import check from '../../assets/icon/check.svg';
-export default function ExerciseItem() {
+export default function ExerciseItem({idx, approach, change}) {
+const {id, intensity, unit, isEdite} = approach;
+
+  function handleChange(e) {
+    change(id, e.target);
+  }
+
   return(
     <div className={classes['exercise-item']}>
-      <span className={classes['exercise-item__num']}>1.</span>
+      <span className={classes['exercise-item__num']}>{idx + 1}.</span>
 
       <div className={classes['exercise-item__controls']}>
 
-        <input className={classes['exercise-item__input']} type="text" disabled />
-        <span className={classes['exercise-item__num']}>х</span>
-        <input className={classes['exercise-item__input']} type="text" />
+        <input
+          onChange={handleChange}
+          className={classes['exercise-item__input']}
+          name="intensity"
+          value={intensity}
+          disabled={isEdite}
+          type="text"/>
 
+        <span className={classes['exercise-item__num']}>х</span>
+
+        <input
+          onChange={handleChange}
+          className={classes['exercise-item__input']}
+          name="unit"
+          value={unit}
+          disabled={isEdite}
+          type="text"/>
 
       </div>
       {/*<span className={classes['exercise-item__btn']}>*/}
