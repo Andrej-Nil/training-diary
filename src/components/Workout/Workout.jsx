@@ -5,37 +5,38 @@ import {useContext, useEffect, useState} from "react";
 import useService from "../../hooks/useService.js";
 import {ModalsContext} from "../../App.jsx";
 import AddExerciseModal from "../AddExerciseModal/AddExerciseModal.jsx";
+import Button from "../Button/Button";
 
 
-export default function Workout({user}) {
+export default function Workout({user, setUser, changePage}) {
   const {openModal, closeModal, modals} = useContext(ModalsContext);
-  // const [workout, setWorkout] = useState(null);
-  const [workout, setWorkout] = useState({
-    id: `id+${Date.now()}`,
-    title: 'Грудь, бицепс',
-    date: 'Чт 02.05.2024',
-    description: 'Тренировка с не большими весами',
-    exerciseList: [
-      {
-        id: `id==${Date.now()}`,
-        title: 'Жим на горизонтальной скамье',
-        approachList: [{id:`id+=${Date.now()}`, intensity: '',  unit: '', isEdited: true}]
-      },
-      {
-        id: `id==33`,
-        title: 'Присяд',
-        approachList: [{id:`id+=11`, intensity: '',  unit: '', isEdited: true}]
-      }
-    ],
-
-  });
+  const [workout, setWorkout] = useState(null);
+  // const [workout, setWorkout] = useState({
+  //   id: `id+${Date.now()}`,
+  //   title: 'Грудь, бицепс',
+  //   date: 'Чт 02.05.2024',
+  //   description: 'Тренировка с не большими весами',
+  //   exerciseList: [
+  //     {
+  //       id: `id==${Date.now()}`,
+  //       title: 'Жим на горизонтальной скамье',
+  //       approachList: [{id:`id+=${Date.now()}`, intensity: '',  unit: '', isEdited: true}]
+  //     },
+  //     {
+  //       id: `id==33`,
+  //       title: 'Присяд',
+  //       approachList: [{id:`id+=11`, intensity: '',  unit: '', isEdited: true}]
+  //     }
+  //   ],
+  //
+  // });
   const service = useService();
-  // useEffect(() => {
-  //   openModal('loading', 'Идет загрузка...')
-  //   service.getCurrent()
-  //     .then((data) => getCurrentSuccess(data))
-  //     .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
-  // }, []);
+  useEffect(() => {
+    openModal('loading', 'Идет загрузка...')
+    service.getCurrent()
+      .then((data) => getCurrentSuccess(data))
+      .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
+  }, []);
 
   function getCurrentSuccess(response){
     if(response.success){
@@ -70,7 +71,29 @@ export default function Workout({user}) {
     }
   }
 
+  function end() {
+    openModal('loading', 'Идет окончание...');
+      service.end()
+        .then((response) => handleEndResponse(response))
+        .catch((error) => endFail('Упс, что то пошло не так'))
+  }
 
+  function handleEndResponse(response){
+    if(response.success){
+      closeModal('loading');
+      openModal('message', 'Удача!');
+      setUser((prev) => {
+        return{...prev, isWorkout: false};
+      });
+
+    }else{
+      endFail(response.message);
+    }
+  }
+  function endFail(message){
+    closeModal('loading');
+    openModal('message', message);
+  }
 
   if(!workout){
     return null;
@@ -95,6 +118,10 @@ export default function Workout({user}) {
           }
 
           <Add onClick={() => openModal('addExercise')}/>
+        </div>
+
+        <div className={classes.workout__bottom}>
+          <Button onClick={end}>Закончить тренировку</Button>
         </div>
       </div>
 

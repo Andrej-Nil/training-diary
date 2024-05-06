@@ -176,13 +176,105 @@ export default class Service {
       success: Math.random() < 0.85,
       message: 'Упс, что то пошло не так!',
       data: [
-        {id:`id+=20`, intensity: '20',  unit: '10', isEdited: true},
-        {id:`id+=50`, intensity: '50',  unit: '10', isEdited: true},
-        {id:`id+=70`, intensity: '70',  unit: '5', isEdited: true},
-        {id:`id+=85`, intensity: '85',  unit: '6', isEdited: true},
-        {id:`id+=86`, intensity: '0',  unit: '0', isEdited: false},
+        {id:`test+1`, intensity: '',  unit: '', isEdited: true},
       ]
     };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  updateApproach = (updateData) =>{
+
+    updateData.token = this.token;
+
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+    };
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  save = (updateData) =>{
+
+    updateData.token = this.token;
+
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+    };
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+  end = () => {
+
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+    };
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.85) {
+          reject(new Error('Что то пошло не так!'))
+        } else {
+          resolve(data);
+        }
+      }, 1000);
+    })
+  }
+
+
+  getWorkouts = () => {
+    const data = {
+      success: Math.random() < 0.85,
+      message: 'Упс, что то пошло не так!',
+      data: [
+        {
+          id: `id+1${Date.now()}`,
+          title: 'Грудь, бицепс',
+          date: 'Пн 02.05.2024',
+          description: 'Тренировка с не большими весами',
+        },
+        {
+          id: `id+2${Date.now()}`,
+          title: 'Ноги, плечи',
+          date: 'Ср 04.05.2024',
+          description: 'Тренировка с не большими весами',
+        },
+        {
+          id: `id+3${Date.now()}`,
+          title: 'Спина, трицепс',
+          date: 'Пт 06.05.2024',
+          description: 'Тренировка с не большими весами',
+        },
+      ]
+    };
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (Math.random() > 0.85) {
@@ -197,4 +289,5 @@ export default class Service {
   getToken() {
    return document.querySelector('[name="token"]').content;
   }
+
 }

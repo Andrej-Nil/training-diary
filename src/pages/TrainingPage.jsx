@@ -15,11 +15,8 @@ export default function TrainingPage(props) {
   return (
     <>
       <Title>Тренировка</Title>
-      {user.isWorkout && <Workout user={user}/>}
+      {user.isWorkout && <Workout user={user} setUser={setUser} changePage={changePage}/>}
       {!user.isWorkout && <Button onClick={() => openModal('create')} >Создать тренировку</Button>}
-
-
-
     </>
   )
 }

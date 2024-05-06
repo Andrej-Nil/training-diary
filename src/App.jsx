@@ -11,9 +11,13 @@ import useService from "./hooks/useService.js";
 
 export const UserContext = createContext(null);
 export const ModalsContext = createContext('')
+export const PageContext = createContext('')
 function App() {
   const service = useService();
   const [user, setUser] = useState({name: 'test', isWorkout: true});
+
+  const [page, setPage] = useState('WORKOUTS');
+
   const [modals, setModals] = useState({
     loading: {isOpen: false, option: 'Загружаю'},
     message: {isOpen: false, option: ''},
@@ -35,7 +39,7 @@ function App() {
 
 
   // const [page, setPage] = useState('null');
-  const [page, setPage] = useState('TRAINING');
+
   function openModal(key, option){
     setModals((prev) => {
       const modal = {...prev[key]}
@@ -116,34 +120,37 @@ function App() {
 
   return (
     <UserContext.Provider value={[user, setUser, logout]}>
-      <ModalsContext.Provider value={{openModal, closeModal, changeOption, modals}}>
-      <div className='app'>
-        <Header changePage={setPage} page={page} logout={logout}/>
-        <main className='main'>
+      <PageContext.Provider value={[page, setPage]}>
+        <ModalsContext.Provider value={{openModal, closeModal, changeOption, modals}}>
 
-          <div className='container'>
-            {page && <Router changePage={setPage} page={page} />}
-          </div>
+        <div className='app'>
+          <Header changePage={setPage} page={page} logout={logout}/>
+          <main className='main'>
 
-        </main>
+            <div className='container'>
+              {page && <Router />}
+            </div>
 
-        <Footer/>
+          </main>
 
-        {modals.auth.isOpen
-          && <AuthModal
-            tab={modals.auth.option}
-            changeTab={changeOption}
-            close={closeModal}
-            login={login}
-            register={register} />}
+          <Footer/>
+
+          {modals.auth.isOpen
+            && <AuthModal
+              tab={modals.auth.option}
+              changeTab={changeOption}
+              close={closeModal}
+              login={login}
+              register={register} />}
 
 
-        {modals.create.isOpen && <CreateModal close={closeModal} />}
-        {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
-        {modals.loading.isOpen && <LoadingModal message={modals.loading.option} /> }
+          {modals.create.isOpen && <CreateModal close={closeModal} />}
+          {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
+          {modals.loading.isOpen && <LoadingModal message={modals.loading.option} /> }
 
-      </div>
-      </ModalsContext.Provider>
+        </div>
+        </ModalsContext.Provider>
+      </PageContext.Provider>
     </UserContext.Provider>
   )
 }

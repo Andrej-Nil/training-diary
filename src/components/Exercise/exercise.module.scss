@@ -21,6 +21,16 @@
   flex-grow: 1;
 }
 
+.exercise__bottom{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.exercise__icon{
+  width: 18px;
+  height: 18px;
+}
 .exercise__curtain{
   position: absolute;
   display: flex;

@@ -3,6 +3,7 @@
   display: flex;
   gap: 15px;
   justify-content: space-between;
+  align-items: center;
 }
 .exercise-item__num{
   font-size: 16px;
@@ -16,7 +17,8 @@
 
 .exercise-item__input{
   font-family: "Roboto", sans-serif;
-  max-width: 80px;
+  //max-width: 80px;
+  width: 100%;
   text-align: center;
   outline: none;
   border: none;

@@ -5,6 +5,7 @@ import Loader from "../Loader/Loader";
 import useService from "../../hooks/useService.js";
 import {useState} from "react";
 import Message from "../Message/Message";
+import saveIcon from "../../assets/icon/save.svg";
 
 export default function Exercise({exercise, setWorkout}) {
   const service = useService();
@@ -73,12 +74,6 @@ export default function Exercise({exercise, setWorkout}) {
       const copyApproachList = [...copyExercise.approachList];
       const copyChangedApproach = {...copyApproachList.find((approach) => approach.id === approachId)};
       copyChangedApproach[name] = value;
-      // const newList = copyExerciseList.map((item) => {
-      //   if(item.id === id){
-      //     return {...item, approachList: response.data};
-      //   }
-      //   return item;
-      // })
 
       const newApproachList = copyApproachList.map((approach) => {
         if(approach.id === copyChangedApproach.id) {
@@ -103,6 +98,41 @@ export default function Exercise({exercise, setWorkout}) {
     })
   }
 
+  function blurApproach(approachId) {
+    const approach = approachList.find((item) => item.id === approachId);
+    const data = {
+      exerciseId: id,
+      approach: approach
+    }
+    service.updateApproach(data)
+      .then((response) => console.log(response))
+      .catch((error) => console.log('ошибка'));
+  }
+
+  function save() {
+    setIsLoading(true);
+    const data = {
+      exerciseId: id,
+      approachList: approachList
+    };
+    service.save(data)
+      .then((response) => saveSuccess(response))
+      .catch((response) => saveError('Упс! Произошла ошибка'))
+  }
+
+  function saveSuccess(response){
+    if(response.success){
+      setIsLoading(false);
+    }else{
+
+      saveError(response);
+    }
+  }
+
+  function saveError(response) {
+    setIsLoading(false);
+    setMessage(response.message);
+  }
 
 
   return (
@@ -117,14 +147,19 @@ export default function Exercise({exercise, setWorkout}) {
                   idx={idx}
                   approach={approach}
                   change={changeApproach}
+                  blur={blurApproach}
                 />
               )
-
           })
         }
       </div>
 
-      <Button onClick={() => addApproach()}>Добавить +</Button>
+      <div className={classes.exercise__bottom}>
+        <Button onClick={() => addApproach()}>Добавить +</Button>
+        <Button onClick={() => save()}>
+          <img className={classes.exercise__icon} src={saveIcon} alt=""/>
+        </Button>
+      </div>
 
       {isLoading && <div className={classes.exercise__curtain}><Loader /></div>}
       {message && <div className={classes.exercise__curtain}><Message message={message} close={() => setMessage(null)}/></div>}

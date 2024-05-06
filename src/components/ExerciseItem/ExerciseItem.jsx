@@ -1,10 +1,14 @@
 import classes from "./exercise-item.module.scss";
-import edit from "../../assets/icon/edit.svg";
-export default function ExerciseItem({idx, approach, change}) {
+// import edit from "../../assets/icon/edit.svg";
+export default function ExerciseItem({idx, approach, change, blur}) {
 const {id, intensity, unit, isEdite} = approach;
 
   function handleChange(e) {
     change(id, e.target);
+  }
+
+  function blurChange(e){
+    blur(id, e.target);
   }
 
   return(
@@ -15,6 +19,7 @@ const {id, intensity, unit, isEdite} = approach;
 
         <input
           onChange={handleChange}
+          onBlur={blurChange}
           className={classes['exercise-item__input']}
           name="intensity"
           value={intensity}
@@ -25,6 +30,7 @@ const {id, intensity, unit, isEdite} = approach;
 
         <input
           onChange={handleChange}
+          onBlur={blurChange}
           className={classes['exercise-item__input']}
           name="unit"
           value={unit}
@@ -32,13 +38,6 @@ const {id, intensity, unit, isEdite} = approach;
           type="text"/>
 
       </div>
-      {/*<span className={classes['exercise-item__btn']}>*/}
-      {/*  <img src={check} className={classes['exercise-item__icon']}/>*/}
-      {/*</span>*/}
-
-      <span className={classes['exercise-item__btn']}>
-        <img src={edit} className={classes['exercise-item__btn']}/>
-      </span>
 
 
     </div>
