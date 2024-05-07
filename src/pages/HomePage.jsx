@@ -4,11 +4,11 @@ import WelcomeForGuest from "../components/WelcomeForGuest/WelcomForGuest";
 import WelcomeForUser from "../components/WelcomeForUser/WelcomeForUser";
 export default function HomePage(){
   const {openModal} = useContext(ModalsContext);
-  const [user] = useContext(UserContext);
-  const [page, changePage] = useContext(PageContext)
+  const {user} = useContext(UserContext);
+  const {setPage} = useContext(PageContext)
   return (
     <>
-      {user && <WelcomeForUser changePage={changePage} workout={user.isWorkout}/>}
+      {user && <WelcomeForUser changePage={setPage} workout={user.isWorkout}/>}
       {!user && <WelcomeForGuest openModal={openModal} />}
     </>
   )

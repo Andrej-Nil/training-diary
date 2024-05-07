@@ -119,8 +119,8 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={[user, setUser, logout]}>
-      <PageContext.Provider value={[page, setPage]}>
+    <UserContext.Provider value={{user, setUser, logout}}>
+      <PageContext.Provider value={{setPage, page}}>
         <ModalsContext.Provider value={{openModal, closeModal, changeOption, modals}}>
 
         <div className='app'>

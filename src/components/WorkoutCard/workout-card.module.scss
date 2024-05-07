@@ -1,0 +1,27 @@
+.workout-card{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f2f2f2;
+  padding: 20px 15px;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+  &:hover{
+    box-shadow: 0 3px 15px rgba(55, 54, 132, 0.3);
+  }
+}
+
+.workout-card__title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.workout-card__date{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.workout-card__description{
+  margin-bottom: auto;
+}
