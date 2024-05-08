@@ -9,7 +9,7 @@ import useService from "../../hooks/useService.js";
 
 export default function CreateForm({openModal, closeModal}){
   const service = useService()
-  const [user, setUser] = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const [form, setForm] = useState({
     title: {
       name: 'title',

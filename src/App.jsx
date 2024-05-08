@@ -14,7 +14,7 @@ export const UserContext = createContext(null);
 export const ModalsContext = createContext('')
 function App() {
   const service = useService();
-  const [user, setUser] = useState({name: 'test', isWorkout: true});
+  const [user, setUser] = useState({name: 'test', currentWorkout: 'id+dfksjgf'});
 
   const [modals, setModals] = useState({
     loading: {isOpen: false, option: 'Загружаю'},

@@ -4,6 +4,7 @@ import useService from "../hooks/useService.js";
 import {useContext, useEffect, useState} from "react";
 import {ModalsContext,  UserContext} from "../App.jsx";
 import {Navigate} from "react-router-dom";
+
 export default function WorkoutsPage(){
   const {openModal, closeModal} = useContext(ModalsContext);
   const {user} = useContext(UserContext);
