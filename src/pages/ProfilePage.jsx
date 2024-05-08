@@ -1,16 +1,16 @@
 import Title from "../components/Title/Title.jsx";
 import Profile from "../components/Profile/Profile";
 import {useContext} from "react";
-import {PageContext, UserContext} from "../App.jsx";
+import {UserContext} from "../App.jsx";
+import {Navigate} from "react-router-dom";
 
 export default function ProfilePage(){
   const {user} = useContext(UserContext);
-  const {setPage} = useContext(PageContext);
-
 
   if(!user){
-    setPage('HOME');
+    return <Navigate to={'/'} />
   }
+
   return (
     <>
       <Title>Страница профиля</Title>

@@ -2,9 +2,9 @@ import Title from "../components/Title/Title";
 import WorkoutList from "../components/WorkoutList/WorkoutList";
 import useService from "../hooks/useService.js";
 import {useContext, useEffect, useState} from "react";
-import {ModalsContext, PageContext, UserContext} from "../App.jsx";
+import {ModalsContext,  UserContext} from "../App.jsx";
+import {Navigate} from "react-router-dom";
 export default function WorkoutsPage(){
-  const {setPage} = useContext(PageContext)
   const {openModal, closeModal} = useContext(ModalsContext);
   const {user} = useContext(UserContext);
   const [workoutList, setWorkoutList] = useState(null)
@@ -12,7 +12,7 @@ export default function WorkoutsPage(){
 
 
   if(!user){
-    setPage('HOME');
+    return <Navigate to={'/'} />
   }
 
   useEffect(() => {

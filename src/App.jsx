@@ -7,16 +7,14 @@ import Footer from "./components/Footer/Footer";
 import LoadingModal from "./components/LoadingModal/LoadingModal.jsx";
 import CreateModal from "./components/CreateModal/CreateModal.jsx";
 import useService from "./hooks/useService.js";
+import {redirect} from "react-router-dom";
 
 
 export const UserContext = createContext(null);
 export const ModalsContext = createContext('')
-export const PageContext = createContext('')
 function App() {
   const service = useService();
   const [user, setUser] = useState({name: 'test', isWorkout: true});
-
-  const [page, setPage] = useState('WORKOUTS');
 
   const [modals, setModals] = useState({
     loading: {isOpen: false, option: 'Загружаю'},
@@ -37,10 +35,9 @@ function App() {
 
 
 
-
-  // const [page, setPage] = useState('null');
-
   function openModal(key, option){
+
+
     setModals((prev) => {
       const modal = {...prev[key]}
       modal.isOpen = true;
@@ -74,9 +71,7 @@ function App() {
     closeModal('loading');
     if(data.success){
       setUser(data.user);
-      setPage('HOME');
     }else{
-      setPage('HOME');
       console.log(data.message);
     }
   }
@@ -101,7 +96,6 @@ function App() {
     closeModal('loading');
     closeModal('auth');
     setUser(data.user);
-    setPage('HOME');
   }
 
   function register() {
@@ -110,7 +104,7 @@ function App() {
 
   function logout() {
     setUser(null);
-    setPage('HOME');
+    return redirect('/');
   }
 
   function fail(data) {
@@ -120,15 +114,14 @@ function App() {
 
   return (
     <UserContext.Provider value={{user, setUser, logout}}>
-      <PageContext.Provider value={{setPage, page}}>
         <ModalsContext.Provider value={{openModal, closeModal, changeOption, modals}}>
 
         <div className='app'>
-          <Header changePage={setPage} page={page} logout={logout}/>
+          <Header />
           <main className='main'>
 
             <div className='container'>
-              {page && <Router />}
+              <Router />
             </div>
 
           </main>
@@ -143,14 +136,14 @@ function App() {
               login={login}
               register={register} />}
 
-
           {modals.create.isOpen && <CreateModal close={closeModal} />}
           {modals.message.isOpen && <MessageModal message={modals.message.option} close={closeModal} />}
           {modals.loading.isOpen && <LoadingModal message={modals.loading.option} /> }
 
         </div>
+
         </ModalsContext.Provider>
-      </PageContext.Provider>
+
     </UserContext.Provider>
   )
 }

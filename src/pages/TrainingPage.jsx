@@ -1,21 +1,20 @@
 import Workout from "../components/Workout/Workout";
-import {useContext, useState} from "react";
-import {ModalsContext, PageContext, UserContext} from "../App.jsx";
+import {useContext} from "react";
+import {ModalsContext, UserContext} from "../App.jsx";
 import Title from "../components/Title/Title";
 import Button from "../components/Button/Button";
+import {Navigate} from "react-router-dom";
 
 export default function TrainingPage() {
-  const {setPage} = useContext(PageContext)
   const {openModal} = useContext(ModalsContext);
   const {user, setUser} = useContext(UserContext);
-  if(!user){
-    setPage('HOME');
-  }
-
+if(!user){
+  return <Navigate to={'/'}/>
+}
   return (
     <>
       <Title>Тренировка</Title>
-      {user.isWorkout && <Workout user={user} setUser={setUser} changePage={setPage}/>}
+      {user.isWorkout && <Workout user={user} setUser={setUser}/>}
       {!user.isWorkout && <Button onClick={() => openModal('create')} >Создать тренировку</Button>}
     </>
   )

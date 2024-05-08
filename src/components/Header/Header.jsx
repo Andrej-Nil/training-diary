@@ -5,23 +5,19 @@ import Nav from "../Nav/Nav";
 import {Link} from "react-router-dom";
 
 
-export default function Header(props){
-  const { logout, changePage, page} = props;
-
+export default function Header(){
   return (
     <header className={classes.header}>
       <div className={`${classes.header__inner} container`}>
-      <Link to='/'>
-        <Logo />
-      </Link>
 
+        <Link to='/'>
+          <Logo />
+        </Link>
 
-        <Nav changePage={changePage} page={page}/>
+        <Nav />
 
-        <UserMenu
-          changePage={changePage}
-          logout={logout}
-        />
+        <UserMenu  />
+
       </div>
     </header>
   )

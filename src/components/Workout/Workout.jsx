@@ -8,7 +8,7 @@ import AddExerciseModal from "../AddExerciseModal/AddExerciseModal.jsx";
 import Button from "../Button/Button";
 
 
-export default function Workout({user, setUser, changePage}) {
+export default function Workout({setUser}) {
   const {openModal, closeModal, modals} = useContext(ModalsContext);
   const [workout, setWorkout] = useState(null);
   // const [workout, setWorkout] = useState({
@@ -38,6 +38,8 @@ export default function Workout({user, setUser, changePage}) {
       .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
   }, []);
 
+
+
   function getCurrentSuccess(response){
     if(response.success){
       closeModal('loading');
@@ -51,7 +53,6 @@ export default function Workout({user, setUser, changePage}) {
     closeModal('loading');
     openModal('message', response.message);
   }
-
 
   function getExercise(data){
     openModal('loading');
