@@ -8,9 +8,9 @@ import {Navigate} from "react-router-dom";
 export default function TrainingPage() {
   const {openModal} = useContext(ModalsContext);
   const {user, setUser} = useContext(UserContext);
-if(!user){
-  return <Navigate to={'/'}/>
-}
+  if(!user){
+    return <Navigate to={'/'}/>
+  }
   return (
     <>
       <Title>Тренировка</Title>

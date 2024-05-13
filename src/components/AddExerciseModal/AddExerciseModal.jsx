@@ -3,9 +3,10 @@ import TabBtn from "../TabBtn/TabBtn.jsx";
 import Tabs from "../Tabs/Tabs.jsx";
 import {useContext} from "react";
 import {ModalsContext} from "../../App.jsx";
-import AddExerciseForm from "../AddExerciseForm/AddExerciseForm";
+import withService from "../../hoc/withService.jsx";
+import AddExerciseForm from "../AddExerciseForm/AddExerciseForm.jsx";
 
-export default function AddExerciseModal({getExercise}){
+function AddExerciseModal({getExercise, service}){
   const {openModal, closeModal} = useContext(ModalsContext);
   return (
     <Modal darkBg cross close={() => closeModal('addExercise')}>
@@ -16,3 +17,7 @@ export default function AddExerciseModal({getExercise}){
     </Modal>
   )
 }
+
+
+
+export default withService()(AddExerciseModal)

@@ -5,7 +5,6 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 export default function AuthModal(props){
-  // const {closeModal, tab, changeTab, login, register} = props;
   const {close, changeTab, tab, login, register} = props;
   function handleChangeTab(tab){
     changeTab('auth', tab)

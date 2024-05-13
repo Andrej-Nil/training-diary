@@ -7,7 +7,7 @@ import {useState} from "react";
 import Message from "../Message/Message";
 import saveIcon from "../../assets/icon/save.svg";
 
-export default function Exercise({exercise, setWorkout}) {
+export default function Exercise({exercise, setWorkout, isEdit}) {
   const service = useService();
   const {approachList, title, id} = exercise;
   const [isLoading, setIsLoading] = useState(false);
@@ -134,6 +134,15 @@ export default function Exercise({exercise, setWorkout}) {
     setMessage(response.message);
   }
 
+  function renderBottom() {
+    return (
+      <div className={classes.exercise__bottom}>
+        <Button onClick={() => addApproach()}>Добавить +</Button>
+        <Button onClick={() => save()}>  <img className={classes.exercise__icon} src={saveIcon} alt=""/> </Button>
+      </div>
+    )
+  }
+
 
   return (
     <div className={classes.exercise}>
@@ -153,13 +162,7 @@ export default function Exercise({exercise, setWorkout}) {
           })
         }
       </div>
-
-      <div className={classes.exercise__bottom}>
-        <Button onClick={() => addApproach()}>Добавить +</Button>
-        <Button onClick={() => save()}>
-          <img className={classes.exercise__icon} src={saveIcon} alt=""/>
-        </Button>
-      </div>
+      {isEdit ? renderBottom() : null}
 
       {isLoading && <div className={classes.exercise__curtain}><Loader /></div>}
       {message && <div className={classes.exercise__curtain}><Message message={message} close={() => setMessage(null)}/></div>}

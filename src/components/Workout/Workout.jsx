@@ -53,48 +53,48 @@ export default function Workout({setUser}) {
     closeModal('loading');
     openModal('message', response.message);
   }
-
-  function getExercise(data){
-    openModal('loading');
-    service.getExercise()
-      .then((response) => getExerciseSuccess(response))
-      .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
-  }
-
-  function getExerciseSuccess(response){
-    if(response.success){
-      closeModal('loading');
-      setWorkout((prev) => {
-        return { ...prev, exerciseList: response.data }
-      })
-    } else {
-      fail(response.map)
-    }
-  }
-
-  function end() {
-    openModal('loading', 'Идет окончание...');
-      service.end()
-        .then((response) => handleEndResponse(response))
-        .catch((error) => endFail('Упс, что то пошло не так'))
-  }
-
-  function handleEndResponse(response){
-    if(response.success){
-      closeModal('loading');
-      openModal('message', 'Удача!');
-      setUser((prev) => {
-        return{...prev, isWorkout: false};
-      });
-
-    }else{
-      endFail(response.message);
-    }
-  }
-  function endFail(message){
-    closeModal('loading');
-    openModal('message', message);
-  }
+  //
+  // function getExercise(data){
+  //   openModal('loading');
+  //   service.getExercise()
+  //     .then((response) => getExerciseSuccess(response))
+  //     .catch((error) => fail({message: 'Упс! Что то пошло не по плану'}))
+  // }
+  //
+  // function getExerciseSuccess(response){
+  //   if(response.success){
+  //     closeModal('loading');
+  //     setWorkout((prev) => {
+  //       return { ...prev, exerciseList: response.data }
+  //     })
+  //   } else {
+  //     fail(response.map)
+  //   }
+  // }
+  //
+  // function end() {
+  //   openModal('loading', 'Идет окончание...');
+  //     service.end()
+  //       .then((response) => handleEndResponse(response))
+  //       .catch((error) => endFail('Упс, что то пошло не так'))
+  // }
+  //
+  // function handleEndResponse(response){
+  //   if(response.success){
+  //     closeModal('loading');
+  //     openModal('message', 'Удача!');
+  //     setUser((prev) => {
+  //       return{...prev, isWorkout: false};
+  //     });
+  //
+  //   }else{
+  //     endFail(response.message);
+  //   }
+  // }
+  // function endFail(message){
+  //   closeModal('loading');
+  //   openModal('message', message);
+  // }
 
   if(!workout){
     return null;

@@ -6,14 +6,14 @@ import MessageModal from "./components/MessageModal/MessageModal";
 import Footer from "./components/Footer/Footer";
 import LoadingModal from "./components/LoadingModal/LoadingModal.jsx";
 import CreateModal from "./components/CreateModal/CreateModal.jsx";
-import useService from "./hooks/useService.js";
 import {redirect} from "react-router-dom";
+import withService from "./hoc/withService.jsx";
 
 
 export const UserContext = createContext(null);
 export const ModalsContext = createContext('')
-function App() {
-  const service = useService();
+function App({service}) {
+
   const [user, setUser] = useState({name: 'test', currentWorkout: 'id+dfksjgf'});
 
   const [modals, setModals] = useState({
@@ -123,7 +123,6 @@ function App() {
             <div className='container'>
               <Router />
             </div>
-
           </main>
 
           <Footer/>
@@ -148,4 +147,6 @@ function App() {
   )
 }
 
-export default App;
+
+
+export default withService()(App);

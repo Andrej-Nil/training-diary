@@ -3,7 +3,6 @@ import Modal from "../Modal/Modal";
 import Message from "../Message/Message";
 
 export default function MessageModal({close, message}){
-  console.log(message)
   function handelClose(){
     close('message')
   }

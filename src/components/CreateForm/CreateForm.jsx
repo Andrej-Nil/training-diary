@@ -5,10 +5,9 @@ import {useContext, useState} from "react";
 import Input from "../Input/Input.jsx";
 import Textarea from "../Textarea/Textarea";
 import {UserContext} from "../../App.jsx";
-import useService from "../../hooks/useService.js";
+import withService from "../../hoc/withService.jsx";
 
-export default function CreateForm({openModal, closeModal}){
-  const service = useService()
+function CreateForm({openModal, closeModal, service}){
   const {user, setUser} = useContext(UserContext);
   const [form, setForm] = useState({
     title: {
@@ -103,3 +102,6 @@ export default function CreateForm({openModal, closeModal}){
     </Form>
   )
 }
+
+
+export default withService()(CreateForm);

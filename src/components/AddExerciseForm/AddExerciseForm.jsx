@@ -1,4 +1,3 @@
-import useService from "../../hooks/useService.js";
 import {useContext, useState} from "react";
 import {UserContext} from "../../App.jsx";
 import Form from "../Form/Form.jsx";
@@ -7,10 +6,10 @@ import Input from "../Input/Input.jsx";
 import Button from "../Button/Button.jsx";
 import useCheckInput from "../../hooks/useCheckInput.js";
 import useCheckForm from "../../hooks/useCheckForm.js";
+import withService from "../../hoc/withService.jsx";
 
-export default function AddExerciseForm({openModal, closeModal, getExercise}){
-  const service = useService()
-  const [user, setUser] = useContext(UserContext);
+function AddExerciseForm({openModal, closeModal, getExercise, service}){
+  const {user, setUser} = useContext(UserContext);
   const [form, setForm] = useState({
     name: {
       name: 'name',
@@ -99,3 +98,4 @@ export default function AddExerciseForm({openModal, closeModal, getExercise}){
     </Form>
   )
 }
+export default withService()(AddExerciseForm);
